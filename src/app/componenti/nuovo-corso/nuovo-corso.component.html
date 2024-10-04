@@ -1,0 +1,22 @@
+<div id="main">
+    <h1>Inserisci Nuovo Corso</h1>
+    <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+            <mat-label>Canale (A-B)</mat-label>
+            <input matInput formControlName="canale">
+            <mat-error *ngIf="regForm.get('canale')?.hasError('required')">
+              Canale è richiesto.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Anno (xxxx-yyyy)</mat-label>
+            <input matInput formControlName="anno">
+            <mat-error *ngIf="regForm.get('anno')?.hasError('required')">
+              Anno è richiesto.
+            </mat-error>
+          </mat-form-field>
+
+        <button mat-raised-button class="custom-button" type="submit" [disabled]="regForm.invalid">Inserisci</button>
+      </form>
+    </div>

@@ -1,0 +1,72 @@
+#main{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+    height: 89.5%;
+    background-color: #d1e0ff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+form {
+    max-width: 600px;
+    background-color: #d1e0ff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  h1{
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: 25px;
+    color:#8ABBD5;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+  }
+  .mat-form-field {
+    width: 100%;
+    margin-bottom: 20px; 
+  }
+  
+  .mat-form-field .mat-form-field-label {
+    font-size: 14px;
+  }
+  
+  .mat-form-field input,
+  .mat-form-field mat-select {
+    font-size: 16px;
+  }
+  
+  button.mat-raised-button {
+    background-color: #8ABBD5 !important;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    margin-top: 20px; 
+  }
+  .custom-button {
+    background-color: #8ABBD5 !important;
+    color: white !important;
+  }
+  
+  .custom-button:disabled {
+    background-color: #b3d4e5 !important; 
+  }
+  
+  .mat-error {
+    color: #f44336;
+  }
+
+  .mat-datepicker-toggle {
+    color: #8ABBD5;
+  }
+  
+  .mat-datepicker-content {
+    background-color: #ffffff;
+  }
+  

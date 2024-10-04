@@ -1,0 +1,74 @@
+
+<div class="container">
+    <div class="left-panel">
+      <p class="p1">Università degli <br> studi di Catania</p>
+      <p class="p2">Ingegneria Informatica</p>
+      <h1>Database</h1>
+      <p class="p1">aa. 2024-2025</p>
+      <img src="assets\sql.png" alt="Database Icon" class="icon">
+    </div>
+    <div class="right-panel">
+      <h2>Crea Account</h2>
+      <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+          <mat-label>Nome</mat-label>
+          <input matInput formControlName="nome" required>
+          <mat-error *ngIf="regForm.get('nome')?.hasError('required') && regForm.get('nome')?.touched">
+            Nome è obbligatorio
+          </mat-error>
+          <mat-error *ngIf="regForm.get('nome')?.hasError('minlength') && regForm.get('nome')?.touched">
+            Nome deve avere almeno 3 caratteri
+          </mat-error>
+          <mat-error *ngIf="regForm.get('nome')?.hasError('pattern') && regForm.get('nome')?.touched">
+            Nome può contenere solo lettere e spazi
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Cognome</mat-label>
+          <input matInput formControlName="cognome" required>
+          <mat-error *ngIf="regForm.get('cognome')?.hasError('required') && regForm.get('cognome')?.touched">
+            Cognome è obbligatorio
+          </mat-error>
+          <mat-error *ngIf="regForm.get('cognome')?.hasError('minlength') && regForm.get('cognome')?.touched">
+            Cognome deve avere almeno 3 caratteri
+          </mat-error>
+          <mat-error *ngIf="regForm.get('cognome')?.hasError('pattern') && regForm.get('cognome')?.touched">
+            Cognome può contenere solo lettere e spazi
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Matricola</mat-label>
+          <input matInput formControlName="matricola" required>
+          <mat-error *ngIf="regForm.get('matricola')?.hasError('required') && regForm.get('matricola')?.touched">
+            Matricola è obbligatoria
+          </mat-error>
+          <mat-error *ngIf="regForm.get('matricola')?.hasError('pattern') && regForm.get('matricola')?.touched">
+            Matricola deve essere composta da 10 cifre
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" required>
+          <mat-error *ngIf="regForm.get('email')?.hasError('required') && regForm.get('email')?.touched">
+            Email è obbligatoria
+          </mat-error>
+          <mat-error *ngIf="regForm.get('email')?.hasError('email') && regForm.get('email')?.touched">
+            Inserisci un indirizzo email valido
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" type="password" required>
+          <mat-error *ngIf="regForm.get('password')?.hasError('required') && regForm.get('password')?.touched">
+            Password è obbligatoria
+          </mat-error>
+          <mat-error *ngIf="regForm.get('password')?.hasError('minlength') && regForm.get('password')?.touched">
+            Password deve contenere almeno 8 caratteri
+          </mat-error>
+        </mat-form-field>
+        <button mat-raised-button type="submit" [disabled]="!regForm.valid">Crea Account</button>
+      </form>
+      <p>Hai già un account? <a [routerLink]="['/login']">Accedi</a></p>
+    </div>
+  </div>
+  

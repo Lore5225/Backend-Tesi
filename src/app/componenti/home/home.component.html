@@ -1,0 +1,83 @@
+<div class="container">
+  <aside class="sidebar">
+    <div class="home" (click)="navigateToHome()">
+      <img src="assets/home_page.png" alt="Dashboard Icon" />
+    </div>
+    <ul>
+      <ng-container *ngIf="userType !== 'professor'; else professorMenu">
+        <li class="dashboard">
+          <img src="assets/dashboard.png" alt="Dashboard Icon" />
+          Dashboard
+        </li>
+        <li>
+          <img src="assets/esami.png" alt="Esami Icon" />
+          Esami
+        </li>
+        <li (click)="navigateToPrenotati()">
+          <img src="assets/prenotati.png" alt="Prenotati Icon" />
+          Prenotati
+        </li>
+        <li (click)="navigateToAllenati()">
+          <img src="assets/allenati.png" alt="Allenati Icon" />
+          Allenati
+        </li>
+        <li (click)="navigateToCorsi()">
+          <img src="assets/corsi.png" alt="Corsi Icon" />
+          Corsi
+        </li>
+        <li (click)="navigateToLezioni()">
+          <img src="assets/prenotati.png" alt="Lezioni Icon" />
+          Lezioni
+        </li>
+        <li (click)="navigateToRisultati()">
+          <img src="assets/risultati.png" alt="Risultati Icon" />
+          Risultati
+        </li>
+        <li (click)="navigateToAvvisi()">
+          <img src="assets/avvisi.png" alt="Avvisi Icon" />
+          Avvisi
+        </li>
+      </ng-container>
+
+      <ng-template #professorMenu>
+        <li class="dashboard">
+          <img src="assets/dashboard.png" alt="Dashboard Icon" />
+          Dashboard
+        </li>
+        <li>
+          <img src="assets/esami.png" alt="Esami Icon" />
+          Storico Esami
+        </li>
+        <li (click)="navigateToNuovoAppello()">
+          <img src="assets/prenotati.png" alt="Prenotati Icon" />
+          Nuovo Appello
+        </li>
+        <li (click)="navigateToNuovoCorso()">
+          <img src="assets/corsi.png" alt="Corsi Icon" />
+          Nuovo Corso
+        </li>
+        <li (click)="navigateToNuovoMateriale()">
+          <img src="assets/prenotati.png" alt="Lezioni Icon" />
+          Nuova Lezione
+        </li>
+        <li (click)="navigateToNuovoAvviso()">
+          <img src="assets/avvisi.png" alt="Avvisi Icon" />
+          Nuovo Avviso
+        </li>
+        <li>
+          <img src="assets/risultati.png" alt="Risultati Icon" />
+          Risultati
+        </li>
+      </ng-template>
+
+      <li (click)="onLogout()">
+        <img src="assets/logout.png" alt="Logout Icon" />
+        Logout
+      </li>
+    </ul>
+  </aside>
+
+  <div class="router-outlet-container">
+    <router-outlet></router-outlet>
+  </div>
+</div>
