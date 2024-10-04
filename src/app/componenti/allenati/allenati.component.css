@@ -10,5 +10,14 @@
 }
 
 .animated-button:hover {
-  transform: scale(1.1);
+  transform: scale(1.1); /* Effetto di ingrandimento */
+}
+
+div[innerHTML] {
+  margin-top: 20px;
+  font-size: 1.2em;
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }

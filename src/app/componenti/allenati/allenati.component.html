@@ -1,9 +1,31 @@
 <div class="buttons-container">
-  <button mat-raised-button color="primary" class="animated-button">
+  <button
+    mat-raised-button
+    color="primary"
+    class="animated-button"
+    (click)="generateExam()"
+  >
     <mat-icon>add</mat-icon> Genera Nuovo Esame
   </button>
 
   <button mat-raised-button color="accent" class="animated-button">
     <mat-icon>assignment</mat-icon> Esami Generati
+  </button>
+</div>
+
+<!-- Aggiungi un'area per visualizzare l'esame generato -->
+<div *ngIf="generatedExam">
+  <h2>Esame Generato:</h2>
+  <div [innerHTML]="generatedExam"></div>
+  <!-- Usa innerHTML per interpretare eventuali tag HTML -->
+
+  <!-- Aggiungi un pulsante per scaricare il file .pdf -->
+  <button
+    mat-raised-button
+    color="warn"
+    class="animated-button"
+    (click)="downloadPdfFile()"
+  >
+    <mat-icon>download</mat-icon> Scarica Esame Come .pdf
   </button>
 </div>
