@@ -1,0 +1,259 @@
+.header {
+    grid-area: header;
+    background-color: #d1e0ff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px;
+    height: 100px;
+    border-radius: 14px;
+    background: linear-gradient(to right, #8ABBD5, #a8d0e6);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .intestazione{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: white;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .intestazione .date{
+    margin-bottom: 40px;
+    color: rgb(227, 227, 227);
+  }
+  
+  .header .date, .header .corso {
+    font-size: 16px;
+  }
+  
+  .header .welcome {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  
+  .header .header-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .main-content{
+    grid-area: content;
+    padding-top: 20px;
+    display: grid;
+    grid-template-columns: 2fr 1fr; 
+    grid-template-rows: 190px 150px;
+    grid-template-areas:
+      "avvisi lezioni"
+      "esami lezioni"; 
+    gap: 20px;
+  }
+
+  .avvisi{
+    display: flex;
+    flex-direction: column;
+    height: 120px !important;
+  }
+
+  .avvisi h1, .lezioni h1, .esami h1, .card h1{
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .avvisi .flex-card{
+    grid-area: avvisi;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .avvisi .card{
+    background-color: white !important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 100px !important;
+    width: 80px !important;
+    border: 3px solid white;
+    transition: transform 0.3s ease;
+  }
+
+  .avvisi .card:hover, .esami .card:hover{
+    border: 3px solid #8ABBD5;
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+  
+  .lezioni .flex-card{
+    grid-area: lezioni;
+    background-color: #8ABBD5;
+    padding: 15px;
+    border-radius: 10px;
+    height: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .lezioni .flex-card:hover{
+    background-color: #d1e0ff;
+    cursor: pointer;
+  }
+
+  .esami{
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .esami .flex-card{
+    grid-area: esami;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .esami .card{
+    transition: transform 0.3s ease;
+  }
+  
+  .card {
+    background-color: #d1e0ff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    flex: 1;
+    margin-right: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 3px solid #d1e0ff;
+    height: 75px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .professor-theme .card:hover{
+    cursor: pointer;
+  }
+
+  button {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    background-color: #8ABBD5;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    width: auto;
+  }
+  
+
+  button:hover{
+    background-color: #488db3;
+  }
+
+  .professor-theme{
+    margin-top: 100px;
+  }
+
+  .uno img{
+    width: 100px !important;
+    height: 100px !important;
+    margin-top: -20px;
+    filter: drop-shadow(3px 3px 3px rgba(0, 0, 0, 0.7));
+  }
+
+  .card h1{
+    line-height: 15px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    color:#8ABBD5;
+  }
+
+  .professor-theme .card {
+    transition: transform 0.3s ease; 
+  }
+  
+  .professor-theme .card:hover {
+    transform: scale(1.1); 
+  }
+
+  .due img{
+    width: 62px !important;
+    height: 62px !important;
+    margin-top: -4px;
+  }
+
+  .tre img{
+    width: 90px !important;
+    height: 90px !important;
+    margin-top: -3px;
+    filter: drop-shadow(3px 3px 3px rgba(0, 0, 0, 0.5)) !important;
+  }
+  
+
+ 
+  .flex-card .card{
+    min-width: 136px !important;
+  }
+
+  .card-lezioni {
+    width: 250px;
+    max-height: 90px !important;
+  }
+
+  .card-lezioni h1{
+    margin-bottom: 0px;
+    color: black;
+    font-size: 15px;
+  }
+
+  .card-lezioni p{
+    color: grey;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    overflow: hidden !important; 
+    text-overflow: ellipsis !important; 
+    white-space: nowrap !important;
+  }
+
+  .lezioni .flex-card{
+    max-height: 260px !important;
+  }
+
+  .row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .row img{
+    width: 30px !important;
+    height: 30px !important;
+    margin-right: 5px;
+    filter: drop-shadow(3px 3px 3px rgba(0, 0, 0, 0.4)) !important;
+  }
+
+  .row h1{
+    margin-bottom: 0px;
+  }
+
+  .avvisi .card h1{
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .avvisi .card p{
+    color: gray;
+    font-family: "Poppins", sans-serif;
+    display: -webkit-box; 
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3; 
+    line-clamp: 3;
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    max-width: 100px; 
+    line-height: 1.4; 
+    height: calc(1.6em * 3);
+  }

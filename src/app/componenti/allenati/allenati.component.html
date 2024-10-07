@@ -1,0 +1,39 @@
+<div class="buttons-container">
+  <button
+    mat-raised-button
+    color="primary"
+    class="animated-button"
+    (click)="generateExam('sql')"
+  >
+    <mat-icon>add</mat-icon> Genera Nuovo Esame SQL
+  </button>
+
+  <button
+    mat-raised-button
+    color="primary"
+    class="animated-button"
+    (click)="generateExam('erm')"
+  >
+    <mat-icon>add</mat-icon> Genera Nuovo Esame ERM
+  </button>
+
+  <button mat-raised-button color="accent" class="animated-button">
+    <mat-icon>assignment</mat-icon> Esami Generati
+  </button>
+</div>
+
+<div *ngIf="loading" class="loading-container">
+  <img src="assets/loading.gif" alt="Loading..." />
+</div>
+
+<div *ngIf="pdfUrl">
+  <h2>Esame Generato:</h2>
+  <button
+    mat-raised-button
+    color="warn"
+    class="animated-button"
+    (click)="downloadPdfFile()"
+  >
+    <mat-icon>download</mat-icon> Scarica Esame Come .pdf
+  </button>
+</div>

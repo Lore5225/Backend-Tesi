@@ -1,0 +1,35 @@
+.buttons-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.animated-button {
+  transition: transform 0.3s ease;
+}
+
+.animated-button:hover {
+  transform: scale(1.1); /* Effetto di ingrandimento */
+}
+
+div[innerHTML] {
+  margin-top: 20px;
+  font-size: 1.2em;
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.loading-container {
+  display: flex;              
+  justify-content: center;   
+  align-items: center;       
+  margin: 10px;      
+}
+
+.loading-container img {
+  max-width: 100px;          
+  height: auto;            
+}

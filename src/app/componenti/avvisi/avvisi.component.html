@@ -1,0 +1,12 @@
+<div class="avvisi-detail-page">
+    <div class="page-header">
+        <h1>Dettagli degli Avvisi</h1>
+    </div>
+
+    <div class="avvisi-container">
+        <div class="avvisi-card" *ngFor="let avviso of avvisi">
+            <p>Data pubblicazione: {{ avviso.data_pubblicazione}}</p>
+            <h2>{{ avviso.testo }}</h2>
+        </div>
+    </div>
+</div>

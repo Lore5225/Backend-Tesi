@@ -1,0 +1,41 @@
+
+<div class="container">
+    <div class="left-panel">
+      <p class="p1">Università degli <br> studi di Catania</p>
+      <p class="p2">Ingegneria Informatica</p>
+      <h1>Database</h1>
+      <p class="p1">aa. 2024-2025</p>
+      <img src="assets\sql.png" alt="Database Icon" class="icon">
+    </div>
+    <div class="right-panel">
+      <h2>Accedi</h2>
+      <form [formGroup]="accForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" required>
+          <mat-error *ngIf="accForm.get('email')?.hasError('required') && accForm.get('email')?.touched">
+            Email è obbligatoria
+          </mat-error>
+          <mat-error *ngIf="accForm.get('email')?.hasError('email') && accForm.get('email')?.touched">
+            Inserisci un indirizzo email valido
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" type="password" required>
+          <mat-error *ngIf="accForm.get('password')?.hasError('required') && accForm.get('password')?.touched">
+            Password è obbligatoria
+          </mat-error>
+          <mat-error *ngIf="accForm.get('password')?.hasError('pattern') && accForm.get('password')?.touched">
+            Password deve contenere almeno 8 caratteri
+          </mat-error>
+        </mat-form-field>
+        <button mat-raised-button type="submit" [disabled]="!accForm.valid">Accedi</button>
+        <mat-checkbox formControlName="is_professor" [checked]="isChecked" (change)="toggleSingleSelectionIndicator()">
+          Accedi come Docente
+        </mat-checkbox>
+      </form>
+      <p>Non hai ancora un account? <a [routerLink]="['/registrazione']">Registrati</a></p>
+    </div>
+  </div>
+  
