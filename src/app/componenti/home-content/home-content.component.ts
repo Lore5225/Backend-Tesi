@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router} from '@angular/router';
-import { AuthServiceService } from '../../Services/auth-service.service'; 
+import { Router } from '@angular/router';
+import { AuthServiceService } from '../../Services/auth-service.service';
 import { CommonModule } from '@angular/common';
 import { DataRetrievalServiceService } from '../../Services/data-retrieval-service.service';
 
@@ -9,14 +9,14 @@ import { DataRetrievalServiceService } from '../../Services/data-retrieval-servi
   standalone: true,
   imports: [CommonModule],
   templateUrl: './home-content.component.html',
-  styleUrl: './home-content.component.css'
+  styleUrl: './home-content.component.css',
 })
-export class HomeContentComponent implements OnInit{
-  todayDate!: string; 
+export class HomeContentComponent implements OnInit {
+  todayDate!: string;
   userType!: string;
   userId!: number;
   userName!: string;
-  lezioni: any[] = []; 
+  lezioni: any[] = [];
   ultimeLezioni: any[] = [];
   avvisi: any[] = [];
   ultimiAvvisi: any[] = [];
@@ -27,33 +27,32 @@ export class HomeContentComponent implements OnInit{
     private dataRetrievalService: DataRetrievalServiceService
   ) {}
 
-
   ngOnInit(): void {
-      const today = new Date();
-      this.todayDate = today.toLocaleDateString('it-IT', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
-      });
-      
-      this.authService.checkSession().subscribe({
-        next: (response) => {
-          if (!response.logged_in) {
-            this.router.navigate(['/login']);
-          } else {
-            this.userType = response.user_type;
-            this.userId = response.user_id;
-            this.userName = response.name;
-          }
-        },
-        error: (err) => {
-          console.error('Errore verifica sessione:', err);
-          this.router.navigate(['/login']);
-        }
-      });
+    const today = new Date();
+    this.todayDate = today.toLocaleDateString('it-IT', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
 
-      this.fetchLezioni();
-      this.fetchAvvisi();
+    this.authService.checkSession().subscribe({
+      next: (response) => {
+        if (!response.logged_in) {
+          this.router.navigate(['/login']);
+        } else {
+          this.userType = response.user_type;
+          this.userId = response.user_id;
+          this.userName = response.name;
+        }
+      },
+      error: (err) => {
+        console.error('Errore verifica sessione:', err);
+        this.router.navigate(['/login']);
+      },
+    });
+
+    this.fetchLezioni();
+    this.fetchAvvisi();
   }
 
   fetchLezioni(): void {
@@ -64,7 +63,7 @@ export class HomeContentComponent implements OnInit{
       },
       error: (err) => {
         console.error('Errore recupero lezioni:', err);
-      }
+      },
     });
   }
 
@@ -76,7 +75,7 @@ export class HomeContentComponent implements OnInit{
       },
       error: (err) => {
         console.error('Errore recupero lezioni:', err);
-      }
+      },
     });
   }
 
@@ -92,7 +91,7 @@ export class HomeContentComponent implements OnInit{
     this.router.navigate(['/home/lezioni']);
   }
 
-  navigateToAvvisi(): void{
+  navigateToAvvisi(): void {
     this.router.navigate(['/home/avvisi']);
   }
 

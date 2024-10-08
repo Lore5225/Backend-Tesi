@@ -1,77 +1,104 @@
 <header class="header">
   <div class="intestazione">
-    <div class="date">{{todayDate}}</div>
-    <div class="welcome">Benvenuto/a, {{userName}}</div>
+    <div class="date">{{ todayDate }}</div>
+    <div class="welcome">Benvenuto/a, {{ userName }}</div>
     <div class="corso">Corso Database 2024/2025</div>
   </div>
-    <div class="header-icon">
-      <img src="assets\cappello.png" alt="Dashboard Icon">
-      <img src="assets\database.png" alt="Dashboard Icon" class="db">
-    </div>
-  </header>
-  
-  <section class="main-content">
-    <div class="avvisi" [ngClass]="{'professor-theme': userType === 'professor'}">
-      <ng-container *ngIf="userType === 'professor'">
-        <div class="flex-card">
-          <div class="card uno">
-            <h1>Genera Nuovo Esame</h1>
-            <img src="assets\genera_esame.png" alt="Genera Nuovo Esame">
-          </div>
-          <div class="card due" (click)="navigateToNuovoMateriale()">
-            <h1>Inserisci Materiale Lezione</h1>
-            <img src="assets\aggiungi_materiale.png" alt="Inserisci materiale lezione">
-          </div>
-          <div class="card tre" (click)="navigateToNuovoAvviso()">
-            <h1>Nuovo Avviso</h1>
-            <img src="assets\nuovo_avviso.png" alt="Nuovo Avviso">
-          </div>
+  <div class="header-icon">
+    <img src="assets\cappello.png" alt="Dashboard Icon" />
+    <img src="assets\database.png" alt="Dashboard Icon" class="db" />
+  </div>
+</header>
+
+<section class="main-content">
+  <div
+    class="avvisi"
+    [ngClass]="{ 'professor-theme': userType === 'professor' }"
+  >
+    <ng-container *ngIf="userType === 'professor'">
+      <div class="flex-card">
+        <div class="card uno">
+          <h1>Genera Nuovo Esame</h1>
+          <img src="assets\genera_esame.png" alt="Genera Nuovo Esame" />
         </div>
-      </ng-container>
-      <ng-container *ngIf="userType === 'student'">
-        <h1 (click)="navigateToAvvisi()">Avvisi</h1>
-        <div class="flex-card student-theme">
-          <div class="card" (click)="navigateToAvvisi()">
-            <div class="row">
-              <img *ngIf="avvisi[0]" src="assets/nuovo_avviso.png" alt="Nuovo Avviso">
-              <h1>{{ avvisi[0]?.data_pubblicazione || 'Nessun avviso da mostrare' }}</h1>
-            </div>
-            <p *ngIf="avvisi[0]">{{ avvisi[0]?.testo }}</p>
-          </div>
-          <div class="card" (click)="navigateToAvvisi()">
-            <div class="row">
-              <img *ngIf="avvisi[1]" src="assets/nuovo_avviso.png" alt="Nuovo Avviso">
-              <h1>{{ avvisi[1]?.data_pubblicazione || 'Nessun avviso da mostrare' }}</h1>
-            </div>
-            <p *ngIf="avvisi[1]">{{ avvisi[1]?.testo }}</p>
-          </div>
-          <div class="card" (click)="navigateToAvvisi()">
-            <div class="row">
-              <img *ngIf="avvisi[2]" src="assets/nuovo_avviso.png" alt="Nuovo Avviso">
-              <h1>{{ avvisi[2]?.data_pubblicazione || 'Nessun avviso da mostrare' }}</h1>
-            </div>
-            <p *ngIf="avvisi[2]">{{ avvisi[2]?.testo }}</p>
-          </div>
+        <div class="card due" (click)="navigateToNuovoMateriale()">
+          <h1>Inserisci Materiale Lezione</h1>
+          <img
+            src="assets\aggiungi_materiale.png"
+            alt="Inserisci materiale lezione"
+          />
         </div>
-      </ng-container>
-    </div>
-    <div class="lezioni">
-      <h1 (click)="navigateToLezioni()">Lezioni</h1>
-      <div class="flex-card" (click)="navigateToLezioni()"><div *ngFor="let lezione of ultimeLezioni" class="card-lezioni">
+        <div class="card tre" (click)="navigateToNuovoAvviso()">
+          <h1>Nuovo Avviso</h1>
+          <img src="assets\nuovo_avviso.png" alt="Nuovo Avviso" />
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="userType === 'student'">
+      <h1 (click)="navigateToAvvisi()">Avvisi</h1>
+      <div class="flex-card student-theme">
+        <div class="card" (click)="navigateToAvvisi()">
+          <div class="row">
+            <img
+              *ngIf="avvisi[0]"
+              src="assets/nuovo_avviso.png"
+              alt="Nuovo Avviso"
+            />
+            <h1>
+              {{ avvisi[0]?.data_pubblicazione || "Nessun avviso da mostrare" }}
+            </h1>
+          </div>
+          <p *ngIf="avvisi[0]">{{ avvisi[0]?.testo }}</p>
+        </div>
+        <div class="card" (click)="navigateToAvvisi()">
+          <div class="row">
+            <img
+              *ngIf="avvisi[1]"
+              src="assets/nuovo_avviso.png"
+              alt="Nuovo Avviso"
+            />
+            <h1>
+              {{ avvisi[1]?.data_pubblicazione || "Nessun avviso da mostrare" }}
+            </h1>
+          </div>
+          <p *ngIf="avvisi[1]">{{ avvisi[1]?.testo }}</p>
+        </div>
+        <div class="card" (click)="navigateToAvvisi()">
+          <div class="row">
+            <img
+              *ngIf="avvisi[2]"
+              src="assets/nuovo_avviso.png"
+              alt="Nuovo Avviso"
+            />
+            <h1>
+              {{ avvisi[2]?.data_pubblicazione || "Nessun avviso da mostrare" }}
+            </h1>
+          </div>
+          <p *ngIf="avvisi[2]">{{ avvisi[2]?.testo }}</p>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="lezioni">
+    <h1 (click)="navigateToLezioni()">Lezioni</h1>
+    <div class="flex-card" (click)="navigateToLezioni()">
+      <div *ngFor="let lezione of ultimeLezioni" class="card-lezioni">
         <h1>{{ lezione.ordine }}. {{ lezione.data }}</h1>
-        <p> {{ lezione.argomento }}</p>
-      </div>
+        <p>{{ lezione.argomento }}</p>
       </div>
     </div>
-    <ng-container *ngIf="userType !== 'professor'">
+  </div>
+  <ng-container *ngIf="userType !== 'professor'">
     <div class="esami">
       <h1>Esami</h1>
       <div class="flex-card">
-        <div class="card"><button (click)="navigateToAllenati()">Genera nuovo Esame</button></div>
-        <div class="card"><button (click)="navigateToEsami()">Informazioni Esame</button></div>
+        <div class="card">
+          <button (click)="navigateToAllenati()">Genera nuovo Esame</button>
+        </div>
+        <div class="card">
+          <button (click)="navigateToEsami()">Informazioni Esame</button>
+        </div>
       </div>
     </div>
   </ng-container>
-  </section>
-  
-
+</section>
