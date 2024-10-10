@@ -7,10 +7,7 @@
 
 .animated-button {
   transition: transform 0.3s ease;
-}
-
-.animated-button:hover {
-  transform: scale(1.1); /* Effetto di ingrandimento */
+  overflow: hidden;
 }
 
 div[innerHTML] {
@@ -23,13 +20,13 @@ div[innerHTML] {
 }
 
 .loading-container {
-  display: flex;              
-  justify-content: center;   
-  align-items: center;       
-  margin: 10px;      
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
 }
 
 .loading-container img {
-  max-width: 100px;          
-  height: auto;            
+  max-width: 100px;
+  height: auto;
 }
