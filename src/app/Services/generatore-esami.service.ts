@@ -1,31 +1,42 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GeneratoreEsamiService {
-  // URL di base per l'API
-  private baseUrl = environment.apiUrl; // Utilizza l'URL dall'ambiente
+  private API_URL = 'http://localhost:5000'; // Assicurati che questo sia il tuo endpoint Flask
   private token = environment.token; // Ottieni il token dall'ambiente
 
   constructor(private http: HttpClient) {}
 
-  // Metodo per generare un esame SQL o ERM
-  generateExam(topic: 'sql' | 'erm'): Observable<Blob> {
-    const endpoint =
-      topic === 'sql' ? '/genera-esame-sql' : '/genera-esame-erm';
-
+  // Metodo per generare esame SQL o ERM
+  generateExam(examType: 'sql' | 'erm'): Observable<Blob> {
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.token}`, // Aggiungi il token all'intestazione
+      Authorization: `Bearer ${this.token}`, // Aggiungi il token qui
     });
 
     return this.http.post(
-      `${this.baseUrl}${endpoint}`,
+      `${this.API_URL}/genera-esame-${examType}`,
       {},
       { headers, responseType: 'blob' }
     );
+  }
+
+  // Metodo per generare soluzione SQL
+  generateSolutionSQL(file: File): Observable<Blob> {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`, // Aggiungi il token qui
+    });
+
+    return this.http.post(`${this.API_URL}/genera-soluzione-sql`, formData, {
+      headers,
+      responseType: 'blob',
+    });
   }
 }
