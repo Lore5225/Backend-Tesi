@@ -66,64 +66,64 @@
       <ng-container *ngIf="userType !== 'professor'; else professorMenu">
         <li (click)="navigateToEsami()">
           <img src="assets/esami.png" alt="Esami Icon" />
-          Esami
+          <span>Esami</span>
         </li>
         <li (click)="navigateToAllenati()">
           <img src="assets/allenati.png" alt="Allenati Icon" />
-          Allenati
+          <span>Allenati</span>
         </li>
         <li (click)="navigateToCorsi()">
           <img src="assets/corsi.png" alt="Corsi Icon" />
-          Corsi
+          <span>Corsi</span>
         </li>
         <li (click)="navigateToLezioni()">
           <img src="assets/prenotati.png" alt="Lezioni Icon" />
-          Lezioni
+          <span>Lezioni</span>
         </li>
         <li (click)="navigateToRisultati()">
           <img src="assets/risultati.png" alt="Risultati Icon" />
-          Risultati
+          <span>Risultati</span>
         </li>
         <li (click)="navigateToAvvisi()">
           <img src="assets/avvisi.png" alt="Avvisi Icon" />
-          Avvisi
+          <span>Avvisi</span>
         </li>
       </ng-container>
 
       <ng-template #professorMenu>
         <li class="dashboard">
           <img src="assets/dashboard.png" alt="Dashboard Icon" />
-          Dashboard
+          <span>Dashboard</span>
         </li>
         <li>
           <img src="assets/esami.png" alt="Esami Icon" />
-          Storico Esami
+          <span>Storico Esami</span>
         </li>
         <li (click)="navigateToNuovoAppello()">
           <img src="assets/prenotati.png" alt="Prenotati Icon" />
-          Nuovo Appello
+          <span>Nuovo Appello</span>
         </li>
         <li (click)="navigateToNuovoCorso()">
           <img src="assets/corsi.png" alt="Corsi Icon" />
-          Nuovo Corso
+          <span>Nuovo Corso</span>
         </li>
         <li (click)="navigateToNuovoMateriale()">
           <img src="assets/prenotati.png" alt="Lezioni Icon" />
-          Nuova Lezione
+          <span>Nuova Lezione</span>
         </li>
         <li (click)="navigateToNuovoAvviso()">
           <img src="assets/avvisi.png" alt="Avvisi Icon" />
-          Nuovo Avviso
+          <span>Nuovo Avviso</span>
         </li>
         <li>
           <img src="assets/risultati.png" alt="Risultati Icon" />
-          Risultati
+          <span>Risultati</span>
         </li>
       </ng-template>
 
       <li (click)="onLogout()">
         <img src="assets/logout.png" alt="Logout Icon" />
-        Logout
+        <span>Logout</span>
       </li>
     </ul>
   </aside>

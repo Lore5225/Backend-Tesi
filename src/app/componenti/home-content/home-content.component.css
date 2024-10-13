@@ -1,259 +1,367 @@
 .header {
-    grid-area: header;
-    background-color: #d1e0ff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 40px;
-    height: 100px;
-    border-radius: 14px;
-    background: linear-gradient(to right, #8ABBD5, #a8d0e6);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  grid-area: header;
+  background-color: #d1e0ff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px;
+  height: 100px;
+  border-radius: 14px;
+  background: linear-gradient(to right, #8abbd5, #a8d0e6);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.intestazione {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: white;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.intestazione .date {
+  margin-bottom: 40px;
+  color: rgb(227, 227, 227);
+}
+
+.header .date,
+.header .corso {
+  font-size: 1.2rem;
+}
+
+.header .welcome {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.header .header-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-content {
+  grid-area: content;
+  padding-top: 20px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 190px 150px;
+  grid-template-areas:
+    "avvisi lezioni"
+    "esami lezioni";
+  gap: 20px;
+}
+
+.avvisi {
+  display: flex;
+  flex-direction: column;
+  height: 120px !important;
+}
+
+
+.avvisi h1,
+.lezioni h1,
+.esami h1,
+.card h1 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 1.3rem;
+
+}
+
+.avvisi .flex-card {
+  grid-area: avvisi;
+  display: flex;
+  justify-content: space-between;
+}
+
+.avvisi .card {
+  background-color: white !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  height: 100px !important;
+  width: 80px !important;
+  border: 3px solid white;
+  transition: transform 0.3s ease;
+}
+
+.avvisi .card:hover,
+.esami .card:hover {
+  border: 3px solid #8abbd5;
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.lezioni .flex-card {
+  grid-area: lezioni;
+  background-color: #8abbd5;
+  padding: 15px;
+  border-radius: 10px;
+  height: 100%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.lezioni .flex-card:hover {
+  background-color: #d1e0ff;
+  cursor: pointer;
+}
+
+.esami {
+  display: flex;
+  flex-direction: column;
+}
+
+.esami .flex-card {
+  grid-area: esami;
+  display: flex;
+  justify-content: flex-start;
+  gap: 25px;
+}
+
+.esami .card {
+  transition: transform 0.3s ease;
+}
+
+.card {
+  background-color: #d1e0ff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  flex: 1;
+  margin-right: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 3px solid #d1e0ff;
+  height: 75px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.professor-theme .card:hover {
+  cursor: pointer;
+}
+
+.cssbuttons-io-button {
+  background: #80a6ba;
+  color: white;
+  font-family: inherit;
+  padding: 0.35em;
+  padding-left: 1.2em;
+  font-size: 1.5rem;
+  font-weight: 500;
+  border-radius: 0.9em;
+  border: none;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  box-shadow: inset 0 0 1.6em -0.6em #96C3DC;
+  overflow: hidden;
+  position: relative;
+  height: 2.8em;
+  padding-right: 3.3em;
+  cursor: pointer;
+}
+
+.cssbuttons-io-button .icon {
+  background: white;
+  margin-left: 1em;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.2em;
+  width: 2.2em;
+  border-radius: 0.7em;
+  box-shadow: 0.1em 0.1em 0.6em 0.2em #96C3DC;
+  right: 0.3em;
+  transition: all 0.3s;
+}
+
+.cssbuttons-io-button:hover .icon {
+  width: calc(100% - 0.6em);
+}
+
+.cssbuttons-io-button .icon svg {
+  width: 1.1em;
+  transition: transform 0.3s;
+  color: #7b52b9;
+}
+
+.cssbuttons-io-button:hover .icon svg {
+  transform: translateX(0.1em);
+}
+
+.cssbuttons-io-button:active .icon {
+  transform: scale(0.95);
+}
+
+button:hover {
+  background-color: #488db3;
+}
+
+.professor-theme {
+  margin-top: 100px;
+}
+
+.uno img {
+  width: 100px !important;
+  height: 100px !important;
+  margin-top: -20px;
+  filter: drop-shadow(3px 3px 3px rgba(0, 0, 0, 0.7));
+}
+
+.card h1 {
+  line-height: 15px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  color: #8abbd5;
+}
+
+.professor-theme .card {
+  transition: transform 0.3s ease;
+}
+
+.professor-theme .card:hover {
+  transform: scale(1.1);
+}
+
+.due img {
+  width: 62px !important;
+  height: 62px !important;
+  margin-top: -4px;
+}
+
+.tre img {
+  width: 90px !important;
+  height: 90px !important;
+  margin-top: -3px;
+  filter: drop-shadow(3px 3px 3px rgba(0, 0, 0, 0.5)) !important;
+}
+
+.flex-card .card {
+  min-width: 136px !important;
+}
+
+.card-lezioni {
+  width: 250px;
+  max-height: 90px !important;
+}
+
+.card-lezioni h1 {
+  margin-bottom: 0px;
+  color: black;
+  font-size: 1.2rem;
+}
+
+.card-lezioni p {
+  color: grey;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.lezioni .flex-card {
+  max-height: 260px !important;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.row img {
+  width: 30px !important;
+  height: 30px !important;
+  margin-right: 5px;
+  filter: drop-shadow(3px 3px 3px rgba(0, 0, 0, 0.4)) !important;
+}
+
+.row h1 {
+  margin-bottom: 0px;
+}
+
+.avvisi .card h1 {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.avvisi .card p {
+  color: gray;
+  font-family: "Poppins", sans-serif;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
+  line-height: 1.4;
+  height: calc(1.6em * 3);
+}
+
+
+/* Media query per schermi più grandi di 1920px (2K) */
+@media screen and (min-width: 1920px) {
+  .header {
+    padding: 50px; /* Aumenta il padding */
+    height: 120px; /* Aumenta l'altezza dell'intestazione */
   }
-  
-  .intestazione{
-    height: 100%;
-    display: flex;
+
+  .main-content {
+    grid-template-columns: 3fr 1.5fr; /* Regola la proporzione delle colonne */
+    grid-template-rows: 230px 180px;  /* Aumenta le righe per dare più spazio */
+    gap: 30px; /* Maggiore spazio tra le card */
+  }
+
+  .avvisi .card, 
+  .esami .card {
+    height: 130px !important; /* Aumenta l'altezza delle card */
+    width: 100px !important;  /* Aumenta la larghezza delle card */
+  }
+
+  .cssbuttons-io-button {
+    height: 3.2em; /* Aumenta l'altezza del bottone */
+    font-size: 20px; /* Aumenta la dimensione del testo */
+  }
+
+  .cssbuttons-io-button .icon {
+    height: 2.6em; /* Aumenta la dimensione dell'icona */
+    width: 2.6em; 
+  }
+}
+
+/* Responsive generale per tablet e dispositivi mobili */
+@media screen and (max-width: 768px) {
+  .header {
     flex-direction: column;
-    justify-content: flex-end;
-    color: white;
-    font-family: "Poppins", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-
-  .intestazione .date{
-    margin-bottom: 40px;
-    color: rgb(227, 227, 227);
-  }
-  
-  .header .date, .header .corso {
-    font-size: 16px;
-  }
-  
-  .header .welcome {
-    font-size: 28px;
-    font-weight: 600;
-    margin-bottom: 10px;
-  }
-  
-  .header .header-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .main-content{
-    grid-area: content;
-    padding-top: 20px;
-    display: grid;
-    grid-template-columns: 2fr 1fr; 
-    grid-template-rows: 190px 150px;
-    grid-template-areas:
-      "avvisi lezioni"
-      "esami lezioni"; 
-    gap: 20px;
-  }
-
-  .avvisi{
-    display: flex;
-    flex-direction: column;
-    height: 120px !important;
-  }
-
-  .avvisi h1, .lezioni h1, .esami h1, .card h1{
-    font-family: "Poppins", sans-serif;
-    font-weight: 600;
-    font-size: 16px;
-    cursor: pointer;
-  }
-
-  .avvisi .flex-card{
-    grid-area: avvisi;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .avvisi .card{
-    background-color: white !important;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    height: 100px !important;
-    width: 80px !important;
-    border: 3px solid white;
-    transition: transform 0.3s ease;
-  }
-
-  .avvisi .card:hover, .esami .card:hover{
-    border: 3px solid #8ABBD5;
-    transform: scale(1.1);
-    cursor: pointer;
-  }
-  
-  .lezioni .flex-card{
-    grid-area: lezioni;
-    background-color: #8ABBD5;
-    padding: 15px;
-    border-radius: 10px;
-    height: 100%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-
-  .lezioni .flex-card:hover{
-    background-color: #d1e0ff;
-    cursor: pointer;
-  }
-
-  .esami{
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .esami .flex-card{
-    grid-area: esami;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .esami .card{
-    transition: transform 0.3s ease;
-  }
-  
-  .card {
-    background-color: #d1e0ff;
     padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    flex: 1;
-    margin-right: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border: 3px solid #d1e0ff;
-    height: 75px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-  }
-  .professor-theme .card:hover{
-    cursor: pointer;
+    height: auto;
   }
 
-  button {
-    font-family: "Poppins", sans-serif;
-    font-weight: 600;
+  .main-content {
+    grid-template-columns: 1fr; /* Una singola colonna */
+    grid-template-rows: auto;
+    gap: 15px;
+  }
+
+  .avvisi .card,
+  .esami .card {
+    height: auto !important;
+    width: 100% !important;
+  }
+
+  .cssbuttons-io-button {
+    height: 2.5em;
     font-size: 14px;
-    background-color: #8ABBD5;
-    color: white;
-    border: none;
-    border-radius: 15px;
-    cursor: pointer;
-    width: auto;
-  }
-  
-
-  button:hover{
-    background-color: #488db3;
   }
 
-  .professor-theme{
-    margin-top: 100px;
+  .cssbuttons-io-button .icon {
+    height: 2em;
+    width: 2em;
   }
-
-  .uno img{
-    width: 100px !important;
-    height: 100px !important;
-    margin-top: -20px;
-    filter: drop-shadow(3px 3px 3px rgba(0, 0, 0, 0.7));
-  }
-
-  .card h1{
-    line-height: 15px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    color:#8ABBD5;
-  }
-
-  .professor-theme .card {
-    transition: transform 0.3s ease; 
-  }
-  
-  .professor-theme .card:hover {
-    transform: scale(1.1); 
-  }
-
-  .due img{
-    width: 62px !important;
-    height: 62px !important;
-    margin-top: -4px;
-  }
-
-  .tre img{
-    width: 90px !important;
-    height: 90px !important;
-    margin-top: -3px;
-    filter: drop-shadow(3px 3px 3px rgba(0, 0, 0, 0.5)) !important;
-  }
-  
-
- 
-  .flex-card .card{
-    min-width: 136px !important;
-  }
-
-  .card-lezioni {
-    width: 250px;
-    max-height: 90px !important;
-  }
-
-  .card-lezioni h1{
-    margin-bottom: 0px;
-    color: black;
-    font-size: 15px;
-  }
-
-  .card-lezioni p{
-    color: grey;
-    font-family: "Poppins", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    overflow: hidden !important; 
-    text-overflow: ellipsis !important; 
-    white-space: nowrap !important;
-  }
-
-  .lezioni .flex-card{
-    max-height: 260px !important;
-  }
-
-  .row{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .row img{
-    width: 30px !important;
-    height: 30px !important;
-    margin-right: 5px;
-    filter: drop-shadow(3px 3px 3px rgba(0, 0, 0, 0.4)) !important;
-  }
-
-  .row h1{
-    margin-bottom: 0px;
-  }
-
-  .avvisi .card h1{
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-  }
-
-  .avvisi .card p{
-    color: gray;
-    font-family: "Poppins", sans-serif;
-    display: -webkit-box; 
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3; 
-    line-clamp: 3;
-    overflow: hidden; 
-    text-overflow: ellipsis; 
-    max-width: 100px; 
-    line-height: 1.4; 
-    height: calc(1.6em * 3);
-  }
+}
