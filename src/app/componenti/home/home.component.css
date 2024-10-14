@@ -10,9 +10,9 @@
 .sidebar {
   grid-area: sidebar;
   background: linear-gradient(to top, #267097b3, #a8d0e6);
-  padding: 20px;
-  margin: 20px;
-  border-radius: 14px;
+  padding: 10px; /* Ridotto padding */
+  margin: 10px; /* Ridotto margine */
+  border-radius: 10px; /* Ridotto border-radius */
   position: relative;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -26,7 +26,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 5px; /* Ridotto margine superiore */
 }
 
 .sidebar li.dashboard {
@@ -37,31 +37,31 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin-bottom: 20px;
+  margin-bottom: 10px; /* Ridotto margine inferiore */
   font-family: "Poppins", sans-serif;
   font-weight: 400;
   color: white;
   width: 100%;
-  padding: 10px;
+  padding: 8px; /* Ridotto padding */
   box-sizing: border-box;
 }
 
 .sidebar img {
-  margin-right: 10px;
-  width: 30px;
-  height: 30px;
+  margin-right: 8px; /* Ridotto margine destro */
+  width: 25px; /* Ridotta larghezza */
+  height: 25px; /* Ridotta altezza */
   flex-shrink: 0;
 }
 
 .sidebar li span {
   flex-grow: 1;
   text-align: left;
-  font-size: 1.2rem;
+  font-size: 0.9rem; /* Ridotto font-size */
 }
 
 li:hover:not(.dashboard:hover) {
   cursor: pointer;
-  transform: scale(1.15);
+  transform: scale(1.1); /* Ridotta l'espansione */
   transition: transform 0.3s ease;
 }
 
@@ -74,14 +74,14 @@ li:not(:hover):not(.dashboard:hover) {
   display: grid;
   place-items: center;
   background: #e3edf7;
-  padding: 1.4em;
-  border-radius: 10px;
-  box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15),
-    -6px -6px 10px -1px rgba(0, 0, 0, 0.15);
+  padding: 1em; /* Ridotto padding */
+  border-radius: 8px; /* Ridotto border-radius */
+  box-shadow: 4px 4px 8px -1px rgba(0, 0, 0, 0.15),
+    -4px -4px 8px -1px rgba(0, 0, 0, 0.15);
   border: 1px solid rgba(0, 0, 0, 0);
   cursor: pointer;
   transition: transform 0.5s;
-  margin: 20px 0;
+  margin: 15px 0; /* Ridotto margine */
 }
 
 .btn:hover {
@@ -90,22 +90,22 @@ li:not(:hover):not(.dashboard:hover) {
     -0.5px -0.5px 0px rgba(255, 255, 255, 1),
     0.5px 0.5px 0px rgba(0, 0, 0, 0.15), 0px 12px 10px -10px rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(0, 0, 0, 0.1);
-  transform: translateY(0.5em);
+  transform: translateY(0.3em); /* Ridotta la trasformazione */
 }
 
 .btn svg {
   transition: transform 0.5s;
-  width: 75px;
-  height: 75px;
+  width: 60px; /* Ridotto larghezza */
+  height: 60px; /* Ridotto altezza */
 }
 
 .btn:hover svg {
-  transform: scale(0.9);
+  transform: scale(0.85); /* Ridotta la trasformazione al passaggio */
   fill: #333333;
 }
 
 .router-outlet-container {
   grid-area: content;
-  padding: 20px;
+  padding: 15px; /* Ridotto padding */
   overflow-y: auto;
 }

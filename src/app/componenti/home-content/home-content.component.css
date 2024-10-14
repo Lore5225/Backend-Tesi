@@ -62,7 +62,6 @@
   height: 120px !important;
 }
 
-
 .avvisi h1,
 .lezioni h1,
 .esami h1,
@@ -70,7 +69,6 @@
   font-family: "Poppins", sans-serif;
   font-weight: 600;
   font-size: 1.3rem;
-
 }
 
 .avvisi .flex-card {
@@ -150,14 +148,14 @@
   font-family: inherit;
   padding: 0.35em;
   padding-left: 1.2em;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 500;
   border-radius: 0.9em;
   border: none;
   letter-spacing: 0.05em;
   display: flex;
   align-items: center;
-  box-shadow: inset 0 0 1.6em -0.6em #96C3DC;
+  box-shadow: inset 0 0 1.6em -0.6em #96c3dc;
   overflow: hidden;
   position: relative;
   height: 2.8em;
@@ -175,7 +173,7 @@
   height: 2.2em;
   width: 2.2em;
   border-radius: 0.7em;
-  box-shadow: 0.1em 0.1em 0.6em 0.2em #96C3DC;
+  box-shadow: 0.1em 0.1em 0.6em 0.2em #96c3dc;
   right: 0.3em;
   transition: all 0.3s;
 }
@@ -304,7 +302,6 @@ button:hover {
   height: calc(1.6em * 3);
 }
 
-
 /* Media query per schermi più grandi di 1920px (2K) */
 @media screen and (min-width: 1920px) {
   .header {
@@ -314,14 +311,14 @@ button:hover {
 
   .main-content {
     grid-template-columns: 3fr 1.5fr; /* Regola la proporzione delle colonne */
-    grid-template-rows: 230px 180px;  /* Aumenta le righe per dare più spazio */
+    grid-template-rows: 230px 180px; /* Aumenta le righe per dare più spazio */
     gap: 30px; /* Maggiore spazio tra le card */
   }
 
-  .avvisi .card, 
+  .avvisi .card,
   .esami .card {
     height: 130px !important; /* Aumenta l'altezza delle card */
-    width: 100px !important;  /* Aumenta la larghezza delle card */
+    width: 100px !important; /* Aumenta la larghezza delle card */
   }
 
   .cssbuttons-io-button {
@@ -331,7 +328,7 @@ button:hover {
 
   .cssbuttons-io-button .icon {
     height: 2.6em; /* Aumenta la dimensione dell'icona */
-    width: 2.6em; 
+    width: 2.6em;
   }
 }
 
