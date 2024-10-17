@@ -282,6 +282,7 @@ button:hover {
 
 .row h1 {
   margin-bottom: 0px;
+  line-height: 1.2rem;
 }
 
 .avvisi .card h1 {

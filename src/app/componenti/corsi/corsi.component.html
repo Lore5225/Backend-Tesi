@@ -1,1 +1,34 @@
-<p>corsi works!</p>
+<div class="corsi-container">
+  <h2>Iscriviti a un corso</h2>
+  <form *ngIf="!isIscritto" (ngSubmit)="iscriviti()">
+    <label for="anno">Anno Accademico:</label>
+    <select [(ngModel)]="corsoSelezionato.anno" name="anno" id="anno" required>
+      <option *ngFor="let anno of anniUnici" [value]="anno">
+        {{ anno }}
+      </option>
+    </select>
+
+    <label for="canale">Canale:</label>
+    <select
+      [(ngModel)]="corsoSelezionato.canale"
+      name="canale"
+      id="canale"
+      required
+    >
+      <option value="A-L">A-L</option>
+      <option value="M-Z">M-Z</option>
+    </select>
+
+    <button type="submit">Iscriviti</button>
+  </form>
+
+  <div *ngIf="isIscritto">
+    <p>
+      Sei già iscritto al corso del canale {{ corsoIscritto?.canale }} anno
+      {{ corsoIscritto?.anno }}.
+    </p>
+    <button type="submit" (click)="cancellaIscrizione()" class="annulla-button">
+      Annulla Iscrizione
+    </button>
+  </div>
+</div>

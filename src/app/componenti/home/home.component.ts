@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
 })
 export class HomeComponent implements OnInit {
   userType!: string;
-
+  userID!: number;
   constructor(
     private authService: AuthServiceService,
     private router: Router,
@@ -27,6 +27,8 @@ export class HomeComponent implements OnInit {
           this.router.navigate(['/login']);
         } else {
           this.userType = response.user_type;
+          this.userID = response.user_id;
+          localStorage.setItem('userID', this.userID.toString());
         }
       },
       error: (err) => {
@@ -35,7 +37,6 @@ export class HomeComponent implements OnInit {
       },
     });
   }
-
   onLogout() {
     this.authService.logout().subscribe({
       next: (response) => {

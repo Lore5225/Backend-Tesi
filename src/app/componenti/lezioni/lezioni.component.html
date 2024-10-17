@@ -1,18 +1,20 @@
 <div class="lesson-detail-page">
-    <div class="page-header">
-        <h1>Dettagli delle Lezioni</h1>
-    </div>
+  <div class="page-header">
+    <h1>Dettagli delle Lezioni</h1>
+  </div>
 
-    <div class="lessons-container">
-        <div class="lesson-card" *ngFor="let lezione of lezioni">
-            <h2>{{ lezione.ordine }}</h2>
-            <h2>{{ lezione.argomento }}</h2>
-            <p>Data: {{ lezione.data}}</p>
+  <div class="lessons-container">
+    <div class="lesson-card" *ngFor="let lezione of lezioni">
+      <h2>{{ lezione.ordine }}</h2>
+      <h2>{{ lezione.argomento }}</h2>
+      <p>Data: {{ lezione.data }}</p>
 
-            <h3>Materiale della lezione:</h3>
-            <ul>
-                <li><a [href]="lezione.link">Slide PDF e Codici</a></li>
-            </ul>
-        </div>
+      <h3>Materiale della lezione:</h3>
+      <ul>
+        <li *ngFor="let url of lezione.link">
+          <a [href]="sanitizeUrl(url)" target="_blank">Materiale</a>
+        </li>
+      </ul>
     </div>
+  </div>
 </div>
