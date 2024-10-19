@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DataRetrievalServiceService } from '../../Services/data-retrieval-service.service';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthServiceService } from '../../Services/auth-service.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -16,21 +15,22 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-nuovo-materiale',
   standalone: true,
-  imports: [CommonModule,
-            ReactiveFormsModule,
-            MatInputModule,
-            MatFormFieldModule,
-            MatSelectModule,
-            MatButtonModule,
-            MatDatepickerModule,
-            MatNativeDateModule
-          ],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+  ],
   templateUrl: './nuovo-materiale.component.html',
-  styleUrl: './nuovo-materiale.component.css'
+  styleUrls: ['./nuovo-materiale.component.css']
 })
 export class NuovoMaterialeComponent {
   regForm!: FormGroup;
-  courses: any[] = []; 
+  courses: any[] = [];
   errorMessage: string = '';
 
   constructor(
@@ -45,13 +45,25 @@ export class NuovoMaterialeComponent {
     this.regForm = this.fb.group({
       numeroLezione: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
       data: ['', Validators.required],
-      linkMateriale: ['', [Validators.required, Validators.pattern('https?://.+')]],
+      linkMateriale: this.fb.array([], Validators.required),
       argomento: ['', Validators.required],
       corso: ['', Validators.required]
     });
 
     this.fetchCourses();
     this.checkSession();
+  }
+
+  get linkMateriale(): FormArray {
+    return this.regForm.get('linkMateriale') as FormArray;
+  }
+
+  addLink(): void {
+    this.linkMateriale.push(this.fb.control('', [Validators.required, Validators.pattern('https?://.+')]));
+  }
+
+  removeLink(index: number): void {
+    this.linkMateriale.removeAt(index);
   }
 
   fetchCourses(): void {
@@ -88,11 +100,28 @@ export class NuovoMaterialeComponent {
 
   onSubmit() {
     if (this.regForm.valid) {
-      const formData = this.regForm.value;
+      const selectedCourse = this.courses.find(course => course.id === this.regForm.value.corso);
+
+      if (!selectedCourse || !selectedCourse.canale) {
+        this.snackBar.open('Seleziona un corso valido con un canale.', 'Chiudi', { duration: 3000 });
+        return;
+      }
+      console.log(selectedCourse.canale)
+      const formData = {
+        ordine: this.regForm.value.numeroLezione,
+        data: this.regForm.value.data,
+        link: this.regForm.value.linkMateriale,
+        argomento: this.regForm.value.argomento,
+        canale: selectedCourse.canale,
+        corso_id: this.regForm.value.corso
+      };
+
+      console.log(formData);
+
       this.dataRetrievalService.nuovaLezione(formData).subscribe({
         next: (response) => {
           this.snackBar.open('Nuovo materiale inserito con successo!', 'Chiudi', { duration: 3000 });
-          this.router.navigate(['/home']); 
+          this.router.navigate(['/home']);
         },
         error: (err) => {
           this.snackBar.open('Errore durante il caricamento. Riprova.', 'Chiudi', { duration: 3000 });

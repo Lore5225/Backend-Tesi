@@ -1,13 +1,13 @@
 <div id="main">
     <h1>Inserisci Nuovo Avviso</h1>
     <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
-        <mat-form-field appearance="fill">
-          <mat-label>Avviso</mat-label>
-          <input matInput formControlName="testoAvviso">
-          <mat-error *ngIf="regForm.get('testoAvviso')?.hasError('required')">
-            Avviso è richiesto.
-          </mat-error>
-        </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Avviso</mat-label>
+        <textarea matInput formControlName="testoAvviso" rows="5"></textarea>
+        <mat-error *ngIf="regForm.get('testoAvviso')?.hasError('required')">
+          Avviso è richiesto.
+        </mat-error>
+      </mat-form-field>
       
         <mat-form-field appearance="fill">
           <mat-label>Corso</mat-label>

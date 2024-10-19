@@ -7,26 +7,51 @@ import { DataRetrievalServiceService } from '../../Services/data-retrieval-servi
   standalone: true,
   imports: [CommonModule],
   templateUrl: './avvisi.component.html',
-  styleUrl: './avvisi.component.css'
+  styleUrls: ['./avvisi.component.css'],
 })
-export class AvvisiComponent implements OnInit{
-  avvisi:any[]=[];
+export class AvvisiComponent implements OnInit {
+  avvisi: any[] = [];
+  corsoIscritto: any = null;
 
-  constructor(private dataRetrievalService: DataRetrievalServiceService){}
+  constructor(private dataRetrievalService: DataRetrievalServiceService) {}
 
-  ngOnInit():void{
-    this.fetchAvvisi();
+  ngOnInit(): void {
+    this.fetchCorsoIscritto();
+  }
+
+  fetchCorsoIscritto(): void {
+    const studenteId = parseInt(localStorage.getItem('userID') || '0', 10);
+    if (studenteId) {
+      this.dataRetrievalService.checkIscrizione(studenteId).subscribe({
+        next: (response) => {
+          if (response.is_iscritto) {
+            this.corsoIscritto = response.corso;
+            this.fetchAvvisi();
+          } else {
+            console.error('Nessun corso trovato per questo studente.');
+          }
+        },
+        error: (err) => {
+          console.error('Errore nel recupero del corso iscritto:', err);
+        },
+      });
+    }
   }
 
   fetchAvvisi(): void {
-    this.dataRetrievalService.fetchAvvisi().subscribe({
-      next: (response) => {
-        this.avvisi = response;
-      },
-      error: (err) => {
-        console.error('Errore recupero lezioni:', err);
-      }
-    });
+    if (this.corsoIscritto) {
+      this.dataRetrievalService.fetchAvvisi().subscribe({
+        next: (response) => {
+          this.avvisi = response.filter((avviso: any) =>
+            avviso.corso_id === this.corsoIscritto.id &&
+            avviso.corso.canale === this.corsoIscritto.canale &&
+            avviso.corso.anno === this.corsoIscritto.anno
+          );
+        },
+        error: (err) => {
+          console.error('Errore recupero avvisi:', err);
+        },
+      });
+    }
   }
-
 }

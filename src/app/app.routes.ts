@@ -10,9 +10,9 @@ import { NuovoCorsoComponent } from './componenti/nuovo-corso/nuovo-corso.compon
 import { LezioniComponent } from './componenti/lezioni/lezioni.component';
 import { AvvisiComponent } from './componenti/avvisi/avvisi.component';
 import { CorsiComponent } from './componenti/corsi/corsi.component';
-import { RisultatiComponent } from './componenti/risultati/risultati.component';
 import { AllenatiComponent } from './componenti/allenati/allenati.component';
 import { EsamiComponent } from './componenti/esami/esami.component';
+import { RisultatiComponent } from './componenti/risultati/risultati.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },

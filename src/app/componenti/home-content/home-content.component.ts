@@ -9,7 +9,7 @@ import { DataRetrievalServiceService } from '../../Services/data-retrieval-servi
   standalone: true,
   imports: [CommonModule],
   templateUrl: './home-content.component.html',
-  styleUrl: './home-content.component.css',
+  styleUrls: ['./home-content.component.css'],
 })
 export class HomeContentComponent implements OnInit {
   todayDate!: string;
@@ -20,6 +20,7 @@ export class HomeContentComponent implements OnInit {
   ultimeLezioni: any[] = [];
   avvisi: any[] = [];
   ultimiAvvisi: any[] = [];
+  corsoIscritto: any = null;  
 
   constructor(
     private authService: AuthServiceService,
@@ -43,6 +44,8 @@ export class HomeContentComponent implements OnInit {
           this.userType = response.user_type;
           this.userId = response.user_id;
           this.userName = response.name;
+
+          this.fetchCorsoIscritto();
         }
       },
       error: (err) => {
@@ -50,33 +53,72 @@ export class HomeContentComponent implements OnInit {
         this.router.navigate(['/login']);
       },
     });
+  }
 
-    this.fetchLezioni();
-    this.fetchAvvisi();
+  fetchCorsoIscritto(): void {
+    const studenteId = parseInt(localStorage.getItem('userID') || '0', 10);
+    if (studenteId) {
+      this.dataRetrievalService.checkIscrizione(studenteId).subscribe({
+        next: (response) => {
+          if (response.is_iscritto) {
+            this.corsoIscritto = response.corso;
+            this.fetchLezioni();
+            this.fetchAvvisi();  
+          } else {
+            console.error('Nessun corso trovato per questo studente.');
+            this.avvisi = [];  
+          }
+        },
+        error: (err) => {
+          console.error('Errore nel recupero del corso iscritto:', err);
+        },
+      });
+    }
+  }
+  
+  fetchAvvisi(): void {
+    if (this.corsoIscritto) {
+      this.dataRetrievalService.fetchAvvisi().subscribe({
+        next: (response) => {
+          this.avvisi = response.filter((avviso: any) => 
+            avviso.corso_id === this.corsoIscritto.id &&
+            avviso.corso.canale === this.corsoIscritto.canale &&
+            avviso.corso.anno === this.corsoIscritto.anno
+          );
+
+        },
+        error: (err) => {
+          console.error('Errore recupero avvisi:', err);
+        },
+      });
+    } else {
+      this.avvisi = []; 
+    }
   }
 
   fetchLezioni(): void {
-    this.dataRetrievalService.fetchLessons().subscribe({
-      next: (response) => {
-        this.lezioni = response;
-        this.ultimeLezioni = this.lezioni.slice(-3);
-      },
-      error: (err) => {
-        console.error('Errore recupero lezioni:', err);
-      },
-    });
-  }
-
-  fetchAvvisi(): void {
-    this.dataRetrievalService.fetchAvvisi().subscribe({
-      next: (response) => {
-        this.avvisi = response;
-        this.ultimiAvvisi = this.lezioni.slice(-3);
-      },
-      error: (err) => {
-        console.error('Errore recupero lezioni:', err);
-      },
-    });
+    if (this.corsoIscritto) {
+      this.dataRetrievalService.fetchLessons().subscribe({
+        next: (response) => {
+          this.lezioni = response
+            .filter((lezione: any) => 
+              lezione.corso_id === this.corsoIscritto.id &&
+              lezione.corso.anno === this.corsoIscritto.anno &&
+              lezione.corso.canale === this.corsoIscritto.canale
+            )
+            .map((lezione: any) => {
+              return {
+                ...lezione,
+                link: JSON.parse(lezione.link),
+              };
+            });
+          this.ultimeLezioni = this.lezioni.slice(-3);  
+        },
+        error: (err) => {
+          console.error('Errore recupero lezioni:', err);
+        },
+      });
+    }
   }
 
   navigateToNuovoAvviso(): void {

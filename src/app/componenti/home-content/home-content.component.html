@@ -35,7 +35,7 @@
       </div>
     </ng-container>
     <ng-container *ngIf="userType === 'student'">
-      <h1 (click)="navigateToAvvisi()">Avvisi</h1>
+      <h1>Avvisi</h1>
       <div class="flex-card student-theme">
         <div class="card" (click)="navigateToAvvisi()">
           <div class="row">
@@ -81,13 +81,23 @@
   </div>
   <div class="lezioni">
     <h1 (click)="navigateToLezioni()">Lezioni</h1>
-    <div class="flex-card" (click)="navigateToLezioni()">
-      <div *ngFor="let lezione of ultimeLezioni" class="card-lezioni">
-        <h1>{{ lezione.ordine }}. {{ lezione.data }}</h1>
-        <p>{{ lezione.argomento }}</p>
+  
+    <ng-container *ngIf="corsoIscritto; else noCorso">
+      <div class="flex-card" (click)="navigateToLezioni()">
+        <div *ngFor="let lezione of ultimeLezioni" class="card-lezioni">
+          <h1>{{ lezione.ordine }}. {{ lezione.data }}</h1>
+          <p>{{ lezione.argomento }}</p>
+        </div>
       </div>
-    </div>
+    </ng-container>
+  
+    <ng-template #noCorso>
+      <div class="no-corso-message">
+        <p>Non sei iscritto ad un corso.</p>
+      </div>
+    </ng-template>
   </div>
+  
   <ng-container *ngIf="userType !== 'professor'">
     <div class="esami">
       <h1>Esami</h1>

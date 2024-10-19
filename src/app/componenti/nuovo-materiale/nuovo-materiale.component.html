@@ -1,6 +1,6 @@
 <div id="main">
-<h1>Inserisci Materiale Lezione</h1>
-<form [formGroup]="regForm" (ngSubmit)="onSubmit()">
+  <h1>Inserisci Materiale Lezione</h1>
+  <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="fill">
       <mat-label>Numero della Lezione</mat-label>
       <input matInput formControlName="numeroLezione">
@@ -11,7 +11,7 @@
         Inserisci un numero valido.
       </mat-error>
     </mat-form-field>
-  
+
     <mat-form-field appearance="fill">
       <mat-label>Data</mat-label>
       <input matInput [matDatepicker]="picker" formControlName="data">
@@ -21,18 +21,24 @@
         La data è richiesta.
       </mat-error>
     </mat-form-field>
-  
-    <mat-form-field appearance="fill">
-      <mat-label>Link al Materiale</mat-label>
-      <input matInput formControlName="linkMateriale">
-      <mat-error *ngIf="regForm.get('linkMateriale')?.hasError('required')">
-        Il link al materiale è richiesto.
-      </mat-error>
-      <mat-error *ngIf="regForm.get('linkMateriale')?.hasError('pattern')">
-        Inserisci un URL valido.
-      </mat-error>
-    </mat-form-field>
-  
+
+    <div formArrayName="linkMateriale">
+      <div *ngFor="let link of linkMateriale.controls; let i = index">
+        <mat-form-field appearance="fill">
+          <mat-label>Link {{ i + 1 }}</mat-label>
+          <input matInput [formControlName]="i">
+          <mat-error *ngIf="link.hasError('required')">
+            Il link al materiale è richiesto.
+          </mat-error>
+          <mat-error *ngIf="link.hasError('pattern')">
+            Inserisci un URL valido.
+          </mat-error>
+        </mat-form-field>
+        <button mat-button (click)="removeLink(i)">Rimuovi</button>
+      </div>
+      <button mat-button (click)="addLink()">Aggiungi Link</button>
+    </div>
+
     <mat-form-field appearance="fill">
       <mat-label>Argomento</mat-label>
       <input matInput formControlName="argomento">
@@ -40,7 +46,7 @@
         L'argomento è richiesto.
       </mat-error>
     </mat-form-field>
-  
+
     <mat-form-field appearance="fill">
       <mat-label>Corso</mat-label>
       <mat-select formControlName="corso">
@@ -52,7 +58,7 @@
         Il corso è richiesto.
       </mat-error>
     </mat-form-field>
-  
+
     <button mat-raised-button class="custom-button" type="submit" [disabled]="regForm.invalid">Inserisci</button>
   </form>
 </div>

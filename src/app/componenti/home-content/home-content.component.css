@@ -242,6 +242,8 @@ button:hover {
   min-width: 136px !important;
 }
 
+
+
 .card-lezioni {
   width: 250px;
   max-height: 90px !important;
@@ -303,37 +305,55 @@ button:hover {
   height: calc(1.6em * 3);
 }
 
-/* Media query per schermi più grandi di 1920px (2K) */
+.no-corso-message {
+  padding: 20px;
+  text-align: center;
+  background-color: #f8d7da; 
+  color: #721c24; 
+  border: 1px solid #f5c6cb;
+  border-radius: 10px; 
+  font-size: 18px;
+  font-weight: bold;
+  max-width: 400px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  transition: transform 0.2s ease-in-out;
+}
+
+.no-corso-message:hover {
+  transform: scale(1.05); 
+}
+
+
 @media screen and (min-width: 1920px) {
   .header {
-    padding: 50px; /* Aumenta il padding */
-    height: 120px; /* Aumenta l'altezza dell'intestazione */
+    padding: 50px; 
+    height: 120px; 
   }
 
   .main-content {
-    grid-template-columns: 3fr 1.5fr; /* Regola la proporzione delle colonne */
-    grid-template-rows: 230px 180px; /* Aumenta le righe per dare più spazio */
-    gap: 30px; /* Maggiore spazio tra le card */
+    grid-template-columns: 3fr 1.5fr; 
+    grid-template-rows: 230px 180px; 
+    gap: 30px; 
   }
 
   .avvisi .card,
   .esami .card {
-    height: 130px !important; /* Aumenta l'altezza delle card */
-    width: 100px !important; /* Aumenta la larghezza delle card */
+    height: 130px !important; 
+    width: 100px !important; 
   }
 
   .cssbuttons-io-button {
-    height: 3.2em; /* Aumenta l'altezza del bottone */
-    font-size: 20px; /* Aumenta la dimensione del testo */
+    height: 3.2em;
+    font-size: 20px; 
   }
 
   .cssbuttons-io-button .icon {
-    height: 2.6em; /* Aumenta la dimensione dell'icona */
+    height: 2.6em; 
     width: 2.6em;
   }
 }
 
-/* Responsive generale per tablet e dispositivi mobili */
+
 @media screen and (max-width: 768px) {
   .header {
     flex-direction: column;
@@ -342,7 +362,7 @@ button:hover {
   }
 
   .main-content {
-    grid-template-columns: 1fr; /* Una singola colonna */
+    grid-template-columns: 1fr; 
     grid-template-rows: auto;
     gap: 15px;
   }

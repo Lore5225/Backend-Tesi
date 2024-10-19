@@ -75,6 +75,7 @@ export class CorsiComponent implements OnInit {
         .subscribe({
           next: () => {
             this.isIscritto = true;
+            this.corsoIscritto = this.corsi.find(corso => corso.id === corsoId);
             this.snackBar.open('Iscritto con successo!', 'Chiudi', {
               duration: 3000,
             });
