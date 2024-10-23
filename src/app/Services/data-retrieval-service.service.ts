@@ -38,4 +38,8 @@ export class DataRetrievalServiceService {
   nuovoAvviso(data: any): Observable<any> {
     return this.http.post('/api/nuovoAvviso', data);
   }
+
+  nuovoCorso(data: any): Observable<any> {
+    return this.http.post('/api/nuovoCorso', data);
+  }
 }

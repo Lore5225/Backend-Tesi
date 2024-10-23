@@ -15,6 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class CorsiComponent implements OnInit {
   corsi: any[] = [];
   anniUnici: number[] = [];
+  canaliDisponibili: string[] = [];
   corsoSelezionato = { anno: '', canale: '' };
   studenteId!: number;
   isIscritto = false;
@@ -48,6 +49,21 @@ export class CorsiComponent implements OnInit {
     const uniqueYears = new Set(this.corsi.map((corso) => corso.anno));
     this.anniUnici = Array.from(uniqueYears);
   }
+
+  onAnnoChange() {
+    // Filtra i canali disponibili in base all'anno selezionato
+    const corsiFiltrati = this.corsi.filter(
+      (corso) => corso.anno === this.corsoSelezionato.anno
+    );
+    this.canaliDisponibili = Array.from(
+      new Set(corsiFiltrati.map((corso) => corso.canale))
+    );
+    // Resetta il canale selezionato se non è più disponibile
+    if (!this.canaliDisponibili.includes(this.corsoSelezionato.canale)) {
+      this.corsoSelezionato.canale = '';
+    }
+  }
+
   controllaIscrizione(studenteId: number) {
     this.dataRetrievalService.checkIscrizione(studenteId).subscribe({
       next: (response) => {
@@ -75,7 +91,9 @@ export class CorsiComponent implements OnInit {
         .subscribe({
           next: () => {
             this.isIscritto = true;
-            this.corsoIscritto = this.corsi.find(corso => corso.id === corsoId);
+            this.corsoIscritto = this.corsi.find(
+              (corso) => corso.id === corsoId
+            );
             this.snackBar.open('Iscritto con successo!', 'Chiudi', {
               duration: 3000,
             });
