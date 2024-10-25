@@ -237,6 +237,19 @@ button:hover {
   filter: drop-shadow(3px 3px 3px rgba(0, 0, 0, 0.5)) !important;
 }
 
+.loading-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px;
+  font-size: 24px;
+  color: #555;
+}
+
+.loading-indicator img {
+  width: 150px;
+}
+
 .flex-card .card {
   min-width: 136px !important;
 }

@@ -20,7 +20,8 @@ export class HomeContentComponent implements OnInit {
   ultimeLezioni: any[] = [];
   avvisi: any[] = [];
   ultimiAvvisi: any[] = [];
-  corsoIscritto: any = null;  
+  corsoIscritto: any = null;
+  isLoading: boolean = true;
 
   constructor(
     private authService: AuthServiceService,
@@ -44,8 +45,13 @@ export class HomeContentComponent implements OnInit {
           this.userType = response.user_type;
           this.userId = response.user_id;
           this.userName = response.name;
+          this.isLoading = false;
 
-          this.fetchCorsoIscritto();
+          if (this.userType === 'professor') {
+            this.fetchLezioniProfessore();
+          } else {
+            this.fetchCorsoIscritto();
+          }
         }
       },
       error: (err) => {
@@ -56,6 +62,7 @@ export class HomeContentComponent implements OnInit {
   }
 
   fetchCorsoIscritto(): void {
+    this.isLoading = true;
     const studenteId = parseInt(localStorage.getItem('userID') || '0', 10);
     if (studenteId) {
       this.dataRetrievalService.checkIscrizione(studenteId).subscribe({
@@ -63,36 +70,38 @@ export class HomeContentComponent implements OnInit {
           if (response.is_iscritto) {
             this.corsoIscritto = response.corso;
             this.fetchLezioni();
-            this.fetchAvvisi();  
+            this.fetchAvvisi();
           } else {
             console.error('Nessun corso trovato per questo studente.');
-            this.avvisi = [];  
+            this.avvisi = [];
           }
+          this.isLoading = false;
         },
         error: (err) => {
           console.error('Errore nel recupero del corso iscritto:', err);
+          this.isLoading = false;
         },
       });
     }
   }
-  
+
   fetchAvvisi(): void {
     if (this.corsoIscritto) {
       this.dataRetrievalService.fetchAvvisi().subscribe({
         next: (response) => {
-          this.avvisi = response.filter((avviso: any) => 
-            avviso.corso_id === this.corsoIscritto.id &&
-            avviso.corso.canale === this.corsoIscritto.canale &&
-            avviso.corso.anno === this.corsoIscritto.anno
+          this.avvisi = response.filter(
+            (avviso: any) =>
+              avviso.corso_id === this.corsoIscritto.id &&
+              avviso.corso.canale === this.corsoIscritto.canale &&
+              avviso.corso.anno === this.corsoIscritto.anno
           );
-
         },
         error: (err) => {
           console.error('Errore recupero avvisi:', err);
         },
       });
     } else {
-      this.avvisi = []; 
+      this.avvisi = [];
     }
   }
 
@@ -101,10 +110,11 @@ export class HomeContentComponent implements OnInit {
       this.dataRetrievalService.fetchLessons().subscribe({
         next: (response) => {
           this.lezioni = response
-            .filter((lezione: any) => 
-              lezione.corso_id === this.corsoIscritto.id &&
-              lezione.corso.anno === this.corsoIscritto.anno &&
-              lezione.corso.canale === this.corsoIscritto.canale
+            .filter(
+              (lezione: any) =>
+                lezione.corso_id === this.corsoIscritto.id &&
+                lezione.corso.anno === this.corsoIscritto.anno &&
+                lezione.corso.canale === this.corsoIscritto.canale
             )
             .map((lezione: any) => {
               return {
@@ -112,13 +122,31 @@ export class HomeContentComponent implements OnInit {
                 link: JSON.parse(lezione.link),
               };
             });
-          this.ultimeLezioni = this.lezioni.slice(-3);  
+          this.ultimeLezioni = this.lezioni.slice(-3);
         },
         error: (err) => {
           console.error('Errore recupero lezioni:', err);
         },
       });
     }
+  }
+
+  fetchLezioniProfessore(): void {
+    this.isLoading = true;
+    this.dataRetrievalService.fetchLessons().subscribe({
+      next: (response) => {
+        this.lezioni = response.map((lezione: any) => ({
+          ...lezione,
+          link: JSON.parse(lezione.link),
+        }));
+        this.ultimeLezioni = this.lezioni.slice(-3);
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Errore recupero lezioni per professore:', err);
+        this.isLoading = false;
+      },
+    });
   }
 
   navigateToNuovoAvviso(): void {

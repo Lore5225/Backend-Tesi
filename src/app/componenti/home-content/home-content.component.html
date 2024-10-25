@@ -12,7 +12,7 @@
   </div>
 </header>
 
-<section class="main-content">
+<section class="main-content" *ngIf="!isLoading; else loadingTemplate">
   <div
     class="avvisi"
     [ngClass]="{ 'professor-theme': userType === 'professor' }"
@@ -36,6 +36,7 @@
         </div>
       </div>
     </ng-container>
+
     <ng-container *ngIf="userType === 'student'">
       <h1>Avvisi</h1>
       <div class="flex-card student-theme">
@@ -65,40 +66,29 @@
           </div>
           <p *ngIf="avvisi[1]">{{ avvisi[1]?.testo }}</p>
         </div>
-        <div class="card" (click)="navigateToAvvisi()">
-          <div class="row">
-            <img
-              *ngIf="avvisi[2]"
-              src="assets/nuovo_avviso.png"
-              alt="Nuovo Avviso"
-            />
-            <h1>
-              {{ avvisi[2]?.data_pubblicazione || "Nessun avviso da mostrare" }}
-            </h1>
-          </div>
-          <p *ngIf="avvisi[2]">{{ avvisi[2]?.testo }}</p>
-        </div>
       </div>
     </ng-container>
   </div>
 
-  <!-- Rimuovi il div del corso e delle lezioni per il professore -->
-  <ng-container *ngIf="userType === 'student'">
-    <ng-container *ngIf="corsoIscritto; else noCorso">
+  <ng-container *ngIf="userType === 'student' || userType === 'professor'">
+    <ng-container
+      *ngIf="corsoIscritto || userType === 'professor'; else noCorso"
+    >
       <div class="lezioni">
         <h1 (click)="navigateToLezioni()">Lezioni</h1>
-      </div>
-      <div class="flex-card" (click)="navigateToLezioni()">
-        <div *ngFor="let lezione of ultimeLezioni" class="card-lezioni">
-          <h1>{{ lezione.ordine }}. {{ lezione.data }}</h1>
-          <p>{{ lezione.argomento }}</p>
+        <div class="flex-card" (click)="navigateToLezioni()">
+          <div *ngFor="let lezione of ultimeLezioni" class="card-lezioni">
+            <h1>{{ lezione.ordine }}. {{ lezione.data }}</h1>
+            <p>{{ lezione.argomento }}</p>
+          </div>
         </div>
       </div>
     </ng-container>
 
     <ng-template #noCorso>
       <div class="no-corso-message">
-        <p>Non sei iscritto ad un corso.</p>
+        <p *ngIf="userType === 'student'">Non sei iscritto a un corso.</p>
+        <p *ngIf="userType === 'professor'">Non hai caricato lezioni.</p>
       </div>
     </ng-template>
   </ng-container>
@@ -146,3 +136,9 @@
     </div>
   </ng-container>
 </section>
+
+<ng-template #loadingTemplate>
+  <div class="loading-indicator">
+    <img src="assets/loading.gif" alt="Caricamento in corso" />
+  </div>
+</ng-template>

@@ -1,7 +1,18 @@
-import { Component, OnInit } from '@angular/core'; 
+import { Component, OnInit } from '@angular/core';
 import { DataRetrievalServiceService } from '../../Services/data-retrieval-service.service';
+import { AuthServiceService } from '../../Services/auth-service.service'; // Importa il tuo servizio di autenticazione
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+
+interface Lezione {
+  id: number;
+  ordine: number;
+  data: string; // Cambia in 'Date' se usi un oggetto Date
+  link: string[];
+  argomento: string;
+  canale: string;
+  corso_id: number;
+}
 
 @Component({
   selector: 'app-lezioni',
@@ -11,16 +22,34 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
   styleUrls: ['./lezioni.component.css'],
 })
 export class LezioniComponent implements OnInit {
-  lezioni: any[] = [];
-  corsoIscritto: any = null;
+  lezioni: Lezione[] = [];
+  lezioniCanaleA_L: Lezione[] = [];
+  lezioniCanaleM_Z: Lezione[] = [];
+  corsoIscritto: any = null; // Potresti voler definire anche un'interfaccia per 'corsoIscritto'
+  userType: string = '';
 
   constructor(
     private dataRetrievalService: DataRetrievalServiceService,
+    private authService: AuthServiceService,
     private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit(): void {
-    this.fetchCorsoIscritto();
+    this.checkUserSession();
+  }
+
+  checkUserSession(): void {
+    this.authService.checkSession().subscribe({
+      next: (response) => {
+        this.userType = response.user_type;
+        this.userType === 'professor'
+          ? this.fetchLezioni()
+          : this.fetchCorsoIscritto();
+      },
+      error: (err) => {
+        console.error('Errore nel controllo della sessione:', err);
+      },
+    });
   }
 
   fetchCorsoIscritto(): void {
@@ -32,7 +61,7 @@ export class LezioniComponent implements OnInit {
             this.corsoIscritto = response.corso;
             this.fetchLezioni();
           } else {
-            console.error('Nessun corso trovato per questo studente.');
+            console.warn('Nessun corso trovato per questo studente.');
           }
         },
         error: (err) => {
@@ -43,27 +72,35 @@ export class LezioniComponent implements OnInit {
   }
 
   fetchLezioni(): void {
-    if (this.corsoIscritto) {
-      this.dataRetrievalService.fetchLessons().subscribe({
-        next: (response) => {
-          this.lezioni = response
-            .filter((lezione: any) => 
-              lezione.corso_id === this.corsoIscritto.id &&
-              lezione.corso.anno === this.corsoIscritto.anno &&
-              lezione.corso.canale === this.corsoIscritto.canale
-            )
-            .map((lezione: any) => {
-              return {
-                ...lezione,
-                link: JSON.parse(lezione.link),
-              };
-            });
-        },
-        error: (err) => {
-          console.error('Errore recupero lezioni:', err);
-        },
-      });
-    }
+    this.dataRetrievalService.fetchLessons().subscribe({
+      next: (response) => {
+        this.lezioni = response.map((lezione: any) => ({
+          ...lezione,
+          link: JSON.parse(lezione.link),
+        }));
+
+        if (this.userType === 'student' && this.corsoIscritto) {
+          this.lezioni = this.lezioni.filter(
+            (lezione) => lezione.corso_id === this.corsoIscritto.id
+          );
+          console.log(this.lezioni);
+        } else if (this.userType === 'professor') {
+          this.divideLezioniPerCanale();
+        }
+      },
+      error: (err) => {
+        console.error('Errore recupero lezioni:', err);
+      },
+    });
+  }
+
+  divideLezioniPerCanale(): void {
+    this.lezioniCanaleA_L = this.lezioni.filter(
+      (lezione) => lezione.canale === 'A-L'
+    );
+    this.lezioniCanaleM_Z = this.lezioni.filter(
+      (lezione) => lezione.canale === 'M-Z'
+    );
   }
 
   sanitizeUrl(url: string): SafeUrl {
