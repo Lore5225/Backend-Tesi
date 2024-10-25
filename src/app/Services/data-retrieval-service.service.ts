@@ -39,7 +39,15 @@ export class DataRetrievalServiceService {
     return this.http.post('/api/nuovoAvviso', data);
   }
 
+  addAppello(appello: any): Observable<any> {
+    return this.http.post('/api/nuovoAppello', appello);
+  }
+
   nuovoCorso(data: any): Observable<any> {
     return this.http.post('/api/nuovoCorso', data);
+  }
+
+  fetchAppelli(corsoId: number): Observable<any> {
+    return this.http.get(`/api/fetchAppelli/${corsoId}`);
   }
 }

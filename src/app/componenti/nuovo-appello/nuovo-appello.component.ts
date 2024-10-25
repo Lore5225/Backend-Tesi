@@ -11,38 +11,42 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthServiceService } from '../../Services/auth-service.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-nuovo-appello',
   standalone: true,
-  imports: [CommonModule,
-            ReactiveFormsModule,
-            MatInputModule,
-            MatFormFieldModule,
-            MatSelectModule,
-            MatButtonModule,
-            MatDatepickerModule,
-            MatNativeDateModule
-          ],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+  ],
   templateUrl: './nuovo-appello.component.html',
-  styleUrl: './nuovo-appello.component.css'
+  styleUrls: ['./nuovo-appello.component.css'],
 })
 export class NuovoAppelloComponent {
   regForm!: FormGroup;
-  courses: any[] = []; 
+  courses: any[] = [];
   errorMessage: string = '';
+  successMessage: string = '';
 
   constructor(
     private fb: FormBuilder,
     private dataRetrievalService: DataRetrievalServiceService,
     private authService: AuthServiceService,
     private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
     this.regForm = this.fb.group({
       data: ['', Validators.required],
-      corso: ['', Validators.required]
+      corso: ['', Validators.required],
     });
 
     this.fetchCourses();
@@ -61,7 +65,7 @@ export class NuovoAppelloComponent {
       error: (err) => {
         console.error('Errore recupero corsi:', err);
         this.errorMessage = 'Errore nel recupero dei corsi.';
-      }
+      },
     });
   }
 
@@ -77,10 +81,40 @@ export class NuovoAppelloComponent {
       error: (err) => {
         console.error('Errore verifica sessione:', err);
         this.router.navigate(['/login']);
-      }
+      },
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
+    if (this.regForm.invalid) return;
+
+    const newAppello = {
+      data: this.regForm.get('data')?.value,
+      corso_id: this.regForm.get('corso')?.value,
+    };
+
+    this.dataRetrievalService.addAppello(newAppello).subscribe({
+      next: (response: { success: any; message: string }) => {
+        if (response.success) {
+          this.successMessage = 'Appello aggiunto con successo!';
+          this.regForm.reset();
+          this.openSnackBar('Appello aggiunto correttamente!', 'Chiudi');
+          this.router.navigate(['/home']);
+        } else {
+          this.errorMessage =
+            response.message || "Errore durante l'aggiunta dell'appello.";
+        }
+      },
+      error: (err: any) => {
+        console.error('Errore aggiunta appello:', err);
+        this.errorMessage = "Errore nel salvataggio dell'appello.";
+      },
+    });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 3000,
+    });
   }
 }

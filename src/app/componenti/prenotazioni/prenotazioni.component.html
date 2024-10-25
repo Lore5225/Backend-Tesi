@@ -1,0 +1,15 @@
+<div id="main">
+  <h1>Prenotazioni Appelli</h1>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+  <ul>
+    <li *ngFor="let appello of prenotazioni">
+      <span>Data: {{ appello.data }}</span>
+      <button
+        *ngIf="prenotazioniStudente.has(appello.id)"
+        (click)="rimuoviPrenotazione(appello.id)"
+      >
+        Rimuovi
+      </button>
+    </li>
+  </ul>
+</div>

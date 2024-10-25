@@ -95,4 +95,7 @@ export class HomeComponent implements OnInit {
   navigateToEsami(): void {
     this.router.navigate(['/home/esami']);
   }
+  navigateToPrenotazione(): void {
+    this.router.navigate(['home/prenotazione']);
+  }
 }
