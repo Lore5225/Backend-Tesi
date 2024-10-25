@@ -50,4 +50,21 @@ export class DataRetrievalServiceService {
   fetchAppelli(corsoId: number): Observable<any> {
     return this.http.get(`/api/fetchAppelli/${corsoId}`);
   }
+
+  fetchPrenotazioni(studenteId: number): Observable<any[]> {
+    return this.http.get<any[]>(`api/fetchPrenotazioni/${studenteId}`);
+  }
+
+  prenotaAppello(studenteId: number, appelloId: number): Observable<any> {
+    return this.http.post('api/prenotaAppello', {
+      studente_id: studenteId,
+      appello_id: appelloId,
+    });
+  }
+  rimuoviPrenotazione(studenteId: number, appelloId: number): Observable<any> {
+    return this.http.post<any>('api/rimuoviPrenotazione', {
+      studente_id: studenteId,
+      appello_id: appelloId,
+    });
+  }
 }

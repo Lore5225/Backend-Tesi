@@ -3,12 +3,6 @@ import { DataRetrievalServiceService } from '../../Services/data-retrieval-servi
 import { AuthServiceService } from '../../Services/auth-service.service';
 import { CommonModule } from '@angular/common';
 
-interface Appello {
-  id: number;
-  data: string;
-  corso_id: number;
-}
-
 @Component({
   selector: 'app-prenotazioni',
   standalone: true,
@@ -17,8 +11,8 @@ interface Appello {
   styleUrls: ['./prenotazioni.component.css'],
 })
 export class PrenotazioniComponent implements OnInit {
-  prenotazioni: Appello[] = [];
-  prenotazioniStudente: Set<number> = new Set();
+  Appelli: any[] = [];
+  prenotazioniMap: { [appelloId: number]: boolean } = {};
   userType: string = '';
   errorMessage: string = '';
   corsoId: number | null = null;
@@ -54,7 +48,7 @@ export class PrenotazioniComponent implements OnInit {
       next: (response) => {
         if (response.is_iscritto) {
           this.corsoId = response.corso.id;
-          this.fetchAppelli();
+          this.fetchAppelli(); // Chiamata per recuperare gli appelli
         } else {
           this.errorMessage = 'Non sei iscritto a nessun corso.';
         }
@@ -67,23 +61,33 @@ export class PrenotazioniComponent implements OnInit {
   }
 
   fetchAppelli(): void {
-    const studenteId = parseInt(localStorage.getItem('userID') || '0', 10);
-
     if (this.corsoId === null) {
       this.errorMessage = 'Corso non trovato.';
       return;
     }
-
     this.dataRetrievalService.fetchAppelli(this.corsoId).subscribe({
-      next: (response: Appello[]) => {
-        console.log('Risposta delle prenotazioni:', response);
-        this.prenotazioni = response;
+      next: (response: any[]) => {
+        console.log('Risposta degli appelli:', response);
+        this.Appelli = response;
+        this.fetchPrenotazioni();
+      },
+      error: (err: any) => {
+        console.error('Errore recupero appelli:', err);
+        this.errorMessage = 'Errore nel recupero degli appelli.';
+      },
+    });
+  }
 
-        if (studenteId) {
-          this.prenotazioniStudente = new Set(
-            response.map((appello) => appello.id)
+  fetchPrenotazioni(): void {
+    const studenteId = parseInt(localStorage.getItem('userID') || '0', 10);
+    this.dataRetrievalService.fetchPrenotazioni(studenteId).subscribe({
+      next: (response: any[]) => {
+        console.log('Risposta delle prenotazioni:', response);
+        this.Appelli.forEach((appello) => {
+          this.prenotazioniMap[appello.id] = response.some(
+            (prenotazione) => prenotazione.appello_id === appello.id
           );
-        }
+        });
       },
       error: (err: any) => {
         console.error('Errore recupero prenotazioni:', err);
@@ -92,16 +96,25 @@ export class PrenotazioniComponent implements OnInit {
     });
   }
 
-  rimuoviPrenotazione(prenotazioneId: number): void {
+  prenotaAppello(appelloId: number): void {
+    const studenteId = parseInt(localStorage.getItem('userID') || '0', 10);
+    this.dataRetrievalService.prenotaAppello(studenteId, appelloId).subscribe({
+      next: () => {
+        this.prenotazioniMap[appelloId] = true;
+      },
+      error: (err: any) => {
+        console.error('Errore nella prenotazione:', err);
+      },
+    });
+  }
+
+  rimuoviPrenotazione(appelloId: number): void {
     const studenteId = parseInt(localStorage.getItem('userID') || '0', 10);
     this.dataRetrievalService
-      .cancellaIscrizione(studenteId, prenotazioneId)
+      .rimuoviPrenotazione(studenteId, appelloId)
       .subscribe({
         next: () => {
-          this.prenotazioni = this.prenotazioni.filter(
-            (p) => p.id !== prenotazioneId
-          );
-          this.prenotazioniStudente.delete(prenotazioneId);
+          delete this.prenotazioniMap[appelloId];
         },
         error: (err) => {
           console.error('Errore nella cancellazione della prenotazione:', err);

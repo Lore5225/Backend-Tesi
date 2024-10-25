@@ -1,15 +1,26 @@
 <div id="main">
   <h1>Prenotazioni Appelli</h1>
   <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
-  <ul>
-    <li *ngFor="let appello of prenotazioni">
+  <ul *ngIf="Appelli.length > 0; else noAppelli">
+    <li *ngFor="let appello of Appelli">
       <span>Data: {{ appello.data }}</span>
+
       <button
-        *ngIf="prenotazioniStudente.has(appello.id)"
+        *ngIf="prenotazioniMap[appello.id]"
         (click)="rimuoviPrenotazione(appello.id)"
       >
         Rimuovi
       </button>
+      <button
+        *ngIf="!prenotazioniMap[appello.id]"
+        (click)="prenotaAppello(appello.id)"
+      >
+        Prenota
+      </button>
     </li>
   </ul>
+
+  <ng-template #noAppelli>
+    <p>Non ci sono appelli disponibili per il corso selezionato.</p>
+  </ng-template>
 </div>

@@ -30,6 +30,9 @@ li {
   border-radius: 6px;
   background-color: #ffffff;
   transition: background-color 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 li:hover {
@@ -50,4 +53,12 @@ button {
 
 button:hover {
   background-color: #c9302c;
+}
+
+button.prenota {
+  background-color: #5cb85c;
+}
+
+button.prenota:hover {
+  background-color: #4cae4c;
 }
