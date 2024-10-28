@@ -1,0 +1,57 @@
+.appelli-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #3f51b5;
+}
+
+.error {
+  color: red;
+  margin-bottom: 15px;
+}
+
+.appelli-list {
+  list-style-type: none;
+  padding: 0;
+  width: 100%;
+}
+
+.appello-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  width: calc(100% - 20px);
+  box-sizing: border-box;
+}
+
+.appello-date,
+.appello-channel {
+  color: #333;
+  font-weight: 500;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.no-appelli {
+  color: #555;
+  font-style: italic;
+}

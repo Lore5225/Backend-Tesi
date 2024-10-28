@@ -1,0 +1,51 @@
+.modifica-appello-container {
+  padding: 20px;
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  font-size: 24px;
+  color: #3f51b5;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.dialog-actions button {
+  width: 48%;
+}
+
+button {
+  border-radius: 4px;
+}
+
+button.mat-button {
+  background-color: #f0f0f0;
+  transition: background-color 0.3s;
+}
+
+button.mat-button:hover {
+  background-color: #e0e0e0;
+}
+
+button.mat-button[color="primary"] {
+  background-color: #3f51b5;
+  color: white;
+}
+
+button.mat-button[color="primary"]:hover {
+  background-color: #303f9f;
+}

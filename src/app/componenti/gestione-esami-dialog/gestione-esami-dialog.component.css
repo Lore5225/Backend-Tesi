@@ -1,0 +1,68 @@
+.dialog-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.file-upload {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.file-label {
+  position: relative;
+  margin-bottom: 5px;
+}
+
+.file-label input {
+  display: none;
+}
+
+.custom-file-button {
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #3f51b5;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-align: center;
+}
+
+.custom-file-button:hover {
+  background-color: #303f9f;
+}
+
+.custom-file-button.loaded {
+  background-color: #4caf50;
+}
+
+button {
+  margin-top: 5px;
+  width: 100%;
+}
+
+h3 {
+  margin-top: 20px;
+}
+
+.prenotazioni-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.prenotazioni-list li {
+  background-color: #f1f1f1;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 4px;
+}

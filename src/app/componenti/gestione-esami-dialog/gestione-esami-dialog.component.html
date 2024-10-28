@@ -1,0 +1,57 @@
+<div class="dialog-container">
+  <h2>Gestisci Esame</h2>
+
+  <div class="file-upload">
+    <label class="file-label">
+      <input type="file" (change)="onFileSelected('SQL', $event)" />
+      <span class="custom-file-button" [class.loaded]="isEsameCaricatoSQL">
+        Carica Esame SQL
+      </span>
+    </label>
+
+    <button
+      mat-button
+      (click)="caricaEsameSQL()"
+      [disabled]="isEsameCaricatoSQL || !selectedFileSQL"
+    >
+      Carica Esame SQL
+    </button>
+  </div>
+
+  <div class="file-upload">
+    <label class="file-label">
+      <input type="file" (change)="onFileSelected('ERM', $event)" />
+      <span class="custom-file-button" [class.loaded]="isEsameCaricatoERM">
+        Carica Esame ERM
+      </span>
+    </label>
+
+    <button
+      mat-button
+      (click)="caricaEsameERM()"
+      [disabled]="isEsameCaricatoERM || !selectedFileERM"
+    >
+      Carica Esame ERM
+    </button>
+  </div>
+
+  <button
+    mat-button
+    color="primary"
+    (click)="iniziaEsame()"
+    [disabled]="!isEsameCaricatoSQL || !isEsameCaricatoERM"
+  >
+    Inizia Esame
+  </button>
+
+  <button mat-button (click)="chiudiDialog()">Chiudi</button>
+
+  <h3>Studenti Prenotati:</h3>
+  <ul class="prenotazioni-list">
+    <li *ngFor="let prenotazione of prenotazioni">
+      Nome: <strong> {{ prenotazione.studente.nome }}</strong> - Cognome:
+      <strong> {{ prenotazione.studente.cognome }}</strong> - Matricola:
+      <strong>{{ prenotazione.studente.matricola }}</strong>
+    </li>
+  </ul>
+</div>

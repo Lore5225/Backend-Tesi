@@ -48,7 +48,7 @@ export class PrenotazioniComponent implements OnInit {
       next: (response) => {
         if (response.is_iscritto) {
           this.corsoId = response.corso.id;
-          this.fetchAppelli(); // Chiamata per recuperare gli appelli
+          this.fetchAppelli();
         } else {
           this.errorMessage = 'Non sei iscritto a nessun corso.';
         }

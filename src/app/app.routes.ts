@@ -14,6 +14,7 @@ import { AllenatiComponent } from './componenti/allenati/allenati.component';
 import { EsamiComponent } from './componenti/esami/esami.component';
 import { RisultatiComponent } from './componenti/risultati/risultati.component';
 import { PrenotazioniComponent } from './componenti/prenotazioni/prenotazioni.component';
+import { GestioneappelliComponent } from './componenti/gestioneappelli/gestioneappelli.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -35,6 +36,7 @@ export const routes: Routes = [
       { path: 'allenati', component: AllenatiComponent },
       { path: 'esami', component: EsamiComponent },
       { path: 'prenotazione', component: PrenotazioniComponent },
+      { path: 'gestioneappelli', component: GestioneappelliComponent },
     ],
   },
 ];

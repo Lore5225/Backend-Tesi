@@ -98,4 +98,8 @@ export class HomeComponent implements OnInit {
   navigateToPrenotazione(): void {
     this.router.navigate(['home/prenotazione']);
   }
+
+  navigateToGestioneAppelli(): void {
+    this.router.navigate(['home/gestioneappelli']);
+  }
 }

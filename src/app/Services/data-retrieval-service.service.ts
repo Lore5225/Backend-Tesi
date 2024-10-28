@@ -51,6 +51,10 @@ export class DataRetrievalServiceService {
     return this.http.get(`/api/fetchAppelli/${corsoId}`);
   }
 
+  fetchAllAppelli(): Observable<any> {
+    return this.http.get(`/api/fetchAllAppelli`);
+  }
+
   fetchPrenotazioni(studenteId: number): Observable<any[]> {
     return this.http.get<any[]>(`api/fetchPrenotazioni/${studenteId}`);
   }
@@ -66,5 +70,28 @@ export class DataRetrievalServiceService {
       studente_id: studenteId,
       appello_id: appelloId,
     });
+  }
+
+  modificaAppello(appelloData: { id: number; data: String }): Observable<any> {
+    return this.http.post<any>('/api/modificaAppello', appelloData);
+  }
+
+  eliminaAppello(data: { id: number }): Observable<any> {
+    return this.http.post<any>('/api/eliminaAppello', data);
+  }
+
+  getPrenotazioniByAppelloId(appelloId: number): Observable<any> {
+    return this.http.post('/api/prenotati', { appello_id: appelloId });
+  }
+
+  caricaEsameSQL(Data: Blob): Observable<any> {
+    return this.http.post(`api/carica-esame-sql`, Data);
+  }
+  caricaEsameERM(Data: Blob): Observable<any> {
+    return this.http.post(`api/carica-esame-erm`, Data);
+  }
+
+  inviaEsame(formData: FormData): Observable<any> {
+    return this.http.post(`api/invia-esame`, formData);
   }
 }

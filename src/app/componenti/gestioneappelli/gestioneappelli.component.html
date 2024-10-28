@@ -1,0 +1,33 @@
+<div id="main" class="appelli-container">
+  <h1>Gestione Appelli</h1>
+
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <ul *ngIf="Appelli.length > 0; else noAppelli" class="appelli-list">
+    <li *ngFor="let appello of Appelli" class="appello-item">
+      <span class="appello-date">Data: {{ appello.data }}</span>
+      <span class="appello-channel">Canale: {{ appello.corso.canale }}</span>
+      <div class="button-group">
+        <button mat-button color="primary" (click)="editAppello(appello)">
+          Modifica Data
+        </button>
+        <button mat-button color="warn" (click)="deleteAppello(appello)">
+          Rimuovi
+        </button>
+        <button
+          mat-button
+          color="accent"
+          (click)="openGestisciEsameDialog(appello)"
+        >
+          Gestisci Esame
+        </button>
+      </div>
+    </li>
+  </ul>
+
+  <ng-template #noAppelli>
+    <p class="no-appelli">
+      Non ci sono appelli disponibili per il corso selezionato.
+    </p>
+  </ng-template>
+</div>
