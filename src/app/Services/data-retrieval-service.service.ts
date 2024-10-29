@@ -84,14 +84,11 @@ export class DataRetrievalServiceService {
     return this.http.post('/api/prenotati', { appello_id: appelloId });
   }
 
-  caricaEsameSQL(Data: Blob): Observable<any> {
-    return this.http.post(`api/carica-esame-sql`, Data);
-  }
-  caricaEsameERM(Data: Blob): Observable<any> {
-    return this.http.post(`api/carica-esame-erm`, Data);
+  inviaEsame(formData: FormData): Observable<any> {
+    return this.http.post(`api/invia-Esame`, formData);
   }
 
-  inviaEsame(formData: FormData): Observable<any> {
-    return this.http.post(`api/invia-esame`, formData);
+  downloadFile(appelloId: number, type: string): Observable<any> {
+    return this.http.get<any>(`api/download/${appelloId}/${type}`);
   }
 }

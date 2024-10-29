@@ -17,6 +17,13 @@
       >
         Prenota
       </button>
+
+      <button
+        *ngIf="prenotazioniMap[appello.id]"
+        (click)="openDatiDialog(appello )"
+      >
+        Dati
+      </button>
     </li>
   </ul>
 

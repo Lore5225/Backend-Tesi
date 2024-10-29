@@ -3,7 +3,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DataRetrievalServiceService } from '../../Services/data-retrieval-service.service';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-gestione-esame-dialog',
@@ -22,7 +23,9 @@ export class GestioneEsameDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<GestioneEsameDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private dataRetrievalService: DataRetrievalServiceService
+    private dataRetrievalService: DataRetrievalServiceService,
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -70,25 +73,34 @@ export class GestioneEsameDialogComponent implements OnInit {
   iniziaEsame(): void {
     console.log('Inizia Esame');
     const formData = new FormData();
+    const compitoId = this.data.appello.compito_id;
+    const appelloId = this.data.appello.id;
 
     if (this.selectedFileSQL) {
       formData.append('fileSQL', this.selectedFileSQL);
     }
+
     if (this.selectedFileERM) {
       formData.append('fileERM', this.selectedFileERM);
     }
 
-    if (this.selectedFileSQL) {
-      this.isEsameCaricatoSQL = true;
-      this.dataRetrievalService.caricaEsameSQL(this.selectedFileSQL);
-      console.log('File SQL caricato:', this.selectedFileSQL.name);
-    }
+    formData.append('compitoId', compitoId.toString());
+    formData.append('appelloId', appelloId.toString());
 
-    if (this.selectedFileERM) {
-      this.isEsameCaricatoERM = true;
-      this.dataRetrievalService.caricaEsameERM(this.selectedFileERM);
-      console.log('File ERM caricato:', this.selectedFileERM.name);
-    }
+    this.dataRetrievalService.inviaEsame(formData).subscribe({
+      next: (response) => {
+        console.log('Esame inviato con successo:', response);
+
+        this.snackBar.open('Esame inviato con successo!', 'Chiudi', {
+          duration: 3000,
+        });
+        this.dialogRef.close();
+        this.router.navigate(['/home']);
+      },
+      error: (err) => {
+        console.error("Errore nell'invio dell'esame:", err);
+      },
+    });
   }
 
   chiudiDialog(): void {

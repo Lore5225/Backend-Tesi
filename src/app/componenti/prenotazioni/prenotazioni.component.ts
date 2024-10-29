@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { DataRetrievalServiceService } from '../../Services/data-retrieval-service.service';
 import { AuthServiceService } from '../../Services/auth-service.service';
 import { CommonModule } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { PrenotazioneDialogComponent } from '../prenotazioni-dialog/prenotazioni-dialog.component';
 
 @Component({
   selector: 'app-prenotazioni',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, PrenotazioneDialogComponent],
   templateUrl: './prenotazioni.component.html',
   styleUrls: ['./prenotazioni.component.css'],
 })
@@ -19,7 +21,8 @@ export class PrenotazioniComponent implements OnInit {
 
   constructor(
     private dataRetrievalService: DataRetrievalServiceService,
-    private authService: AuthServiceService
+    private authService: AuthServiceService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -120,5 +123,12 @@ export class PrenotazioniComponent implements OnInit {
           console.error('Errore nella cancellazione della prenotazione:', err);
         },
       });
+  }
+
+  openDatiDialog(appello: any): void {
+    this.dialog.open(PrenotazioneDialogComponent, {
+      width: '750px',
+      data: { appello: appello },
+    });
   }
 }

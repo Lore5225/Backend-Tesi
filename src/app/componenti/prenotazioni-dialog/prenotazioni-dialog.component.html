@@ -1,0 +1,16 @@
+<div class="dialog-content">
+  <div *ngIf="!data.appello.iniziato">
+    <p>L'esame non è ancora cominciato!</p>
+  </div>
+  <div *ngIf="data.appello.iniziato" class="button-container">
+    <button class="button-scarica-sql" (click)="downloadFile('SQL')">
+      Scarica Esame SQL
+    </button>
+    <button class="button-scarica-erm" (click)="downloadFile('ERM')">
+      Scarica Esame ERM
+    </button>
+    <button class="button-consegna" (click)="uploadFile()">
+      Consegna FILE
+    </button>
+  </div>
+</div>
