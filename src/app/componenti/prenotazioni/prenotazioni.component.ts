@@ -25,8 +25,8 @@ export class PrenotazioniComponent implements OnInit {
     private dataRetrievalService: DataRetrievalServiceService,
     private authService: AuthServiceService,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar, // Aggiungi MatSnackBar qui
-    private router: Router // Aggiungi Router qui
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {}
 
   ngOnInit(): void {

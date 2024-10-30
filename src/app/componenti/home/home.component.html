@@ -95,10 +95,6 @@
       </ng-container>
 
       <ng-template #professorMenu>
-        <li>
-          <img src="assets/esami.png" alt="Esami Icon" />
-          <span>Storico Esami</span>
-        </li>
         <li (click)="navigateToNuovoAppello()">
           <img src="assets/prenotati.png" alt="Prenotati Icon" />
           <span>Nuovo Appello</span>
@@ -118,6 +114,15 @@
         <li (click)="navigateToNuovoAvviso()">
           <img src="assets/avvisi.png" alt="Avvisi Icon" />
           <span>Nuovo Avviso</span>
+        </li>
+        <li (click)="navigateToAllenati()">
+          <img src="assets/allenati.png" alt="Allenati Icon" />
+          <span>Genera Esame</span>
+        </li>
+
+        <li (click)="navigateToValutazione()">
+          <img src="assets/allenati.png" alt="Allenati Icon" />
+          <span>ValutazioneStudenti</span>
         </li>
         <li>
           <img src="assets/risultati.png" alt="Risultati Icon" />

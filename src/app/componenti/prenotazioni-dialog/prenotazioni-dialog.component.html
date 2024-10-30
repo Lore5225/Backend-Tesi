@@ -1,6 +1,6 @@
 <div class="dialog-content">
   <div *ngIf="!data.appello.iniziato">
-    <p>L'esame non Ã¨ ancora cominciato!</p>
+    <p>L'esame non è ancora cominciato!</p>
   </div>
   <div *ngIf="data.appello.iniziato" class="button-container">
     <button class="button-scarica-sql" (click)="downloadFile('SQL')">
@@ -15,7 +15,12 @@
         (change)="onFileSelected('SQL', $event)"
         accept=".txt"
       />
-      <button (click)="uploadFile()">Carica FILE SQL</button>
+      <button
+        [ngClass]="{ 'uploaded-button': uploadedFiles['SQL'] }"
+        (click)="uploadFile()"
+      >
+        Carica FILE SQL
+      </button>
     </div>
     <div class="upload-container">
       <input
@@ -23,7 +28,12 @@
         (change)="onFileSelected('ERM', $event)"
         accept=".pdf"
       />
-      <button (click)="uploadFile()">Carica FILE ERM</button>
+      <button
+        [ngClass]="{ 'uploaded-button': uploadedFiles['ERM'] }"
+        (click)="uploadFile()"
+      >
+        Carica FILE ERM
+      </button>
     </div>
   </div>
 </div>

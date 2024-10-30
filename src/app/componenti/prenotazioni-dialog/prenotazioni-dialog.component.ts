@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { DataRetrievalServiceService } from '../../Services/data-retrieval-service.service';
 
@@ -15,10 +16,15 @@ export class PrenotazioneDialogComponent implements OnInit {
     SQL: null,
     ERM: null,
   };
+  uploadedFiles: { [key: string]: boolean } = {
+    SQL: false,
+    ERM: false,
+  };
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { appello: any },
-    private dataRetrievalService: DataRetrievalServiceService
+    private dataRetrievalService: DataRetrievalServiceService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -48,15 +54,26 @@ export class PrenotazioneDialogComponent implements OnInit {
 
     this.dataRetrievalService.caricaEsame(formData).subscribe({
       next: (response) => {
-        console.log('File caricati con successo:', response);
-        this.selectedFiles = { SQL: null, ERM: null }; // Reset dopo il caricamento
+        this.snackBar.open('Esame caricato con successo!', 'Chiudi', {
+          duration: 3000,
+        });
+        if (this.selectedFiles['SQL']) {
+          this.uploadedFiles['SQL'] = true;
+        }
+        if (this.selectedFiles['ERM']) {
+          this.uploadedFiles['ERM'] = true;
+        }
+        this.selectedFiles = { SQL: null, ERM: null };
       },
       error: (err) => {
         console.error('Errore nel caricamento del file:', err);
+        this.snackBar.open('Errore nel caricamento del file.', 'Chiudi', {
+          duration: 3000,
+        });
       },
     });
   }
-  
+
   downloadFile(type: string): void {
     console.log(`Download del file di tipo: ${type}`);
     this.dataRetrievalService

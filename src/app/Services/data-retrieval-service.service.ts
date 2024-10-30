@@ -97,9 +97,11 @@ export class DataRetrievalServiceService {
     return this.http.post('/api/fermaEsame', { appelloId });
   }
 
-  caricaEsame(formData: FormData): Observable<Blob> {
-    return this.http.post(`/api/caricaEsame`, formData, {
-      responseType: 'blob',
-    });
+  caricaEsame(formData: FormData): Observable<any> {
+    return this.http.post('/api/caricaEsame', formData);
+  }
+
+  fetchStudentiPrenotati(appelloId: number): Observable<any> {
+    return this.http.get<any>(`/api/prenotazioni/${appelloId}`);
   }
 }

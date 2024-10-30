@@ -102,4 +102,8 @@ export class HomeComponent implements OnInit {
   navigateToGestioneAppelli(): void {
     this.router.navigate(['home/gestioneappelli']);
   }
+
+  navigateToValutazione(): void {
+    this.router.navigate(['home/valutazione']);
+  }
 }

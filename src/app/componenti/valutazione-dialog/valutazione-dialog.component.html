@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>Valutazione Esami</h2>
+<mat-dialog-content>
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  <div *ngIf="studenti.length === 0">
+    Nessuno studente prenotato per questo appello.
+  </div>
+  <ul *ngIf="studenti.length > 0">
+    <li *ngFor="let studente of studenti">
+      Nome: {{ studente.studente.nome }} | Cognome:
+      {{ studente.studente.cognome }} | Matricola:
+      {{ studente.studente.matricola }}
+      <div>
+        <button mat-button (click)="downloadFile(studente.filePathSQL)">
+          Scarica File SQL
+        </button>
+        <button mat-button (click)="downloadFile(studente.filePathERM)">
+          Scarica File ERM
+        </button>
+      </div>
+    </li>
+  </ul>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onClose()">Chiudi</button>
+</mat-dialog-actions>
