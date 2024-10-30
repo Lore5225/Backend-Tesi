@@ -106,4 +106,23 @@ export class GestioneEsameDialogComponent implements OnInit {
   chiudiDialog(): void {
     this.dialogRef.close();
   }
+
+  fermaEsame(): void {
+    console.log('Ferma Esame');
+    const appelloId = this.data.appello.id;
+    console.log(this.data.appello.id);
+    this.dataRetrievalService.fermaEsame(appelloId).subscribe({
+      next: () => {
+        console.log('Esame fermato con successo');
+        this.snackBar.open('Esame fermato con successo!', 'Chiudi', {
+          duration: 3000,
+        });
+        this.dialogRef.close();
+        this.router.navigate(['/home']);
+      },
+      error: (err) => {
+        console.error("Errore nel fermare l'esame:", err);
+      },
+    });
+  }
 }

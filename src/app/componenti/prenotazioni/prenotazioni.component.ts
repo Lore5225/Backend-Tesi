@@ -4,6 +4,8 @@ import { AuthServiceService } from '../../Services/auth-service.service';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { PrenotazioneDialogComponent } from '../prenotazioni-dialog/prenotazioni-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-prenotazioni',
@@ -22,7 +24,9 @@ export class PrenotazioniComponent implements OnInit {
   constructor(
     private dataRetrievalService: DataRetrievalServiceService,
     private authService: AuthServiceService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar, // Aggiungi MatSnackBar qui
+    private router: Router // Aggiungi Router qui
   ) {}
 
   ngOnInit(): void {
@@ -129,6 +133,23 @@ export class PrenotazioniComponent implements OnInit {
     this.dialog.open(PrenotazioneDialogComponent, {
       width: '750px',
       data: { appello: appello },
+    });
+  }
+
+  fermaEsame(appelloId: number): void {
+    console.log('Ferma Esame');
+
+    this.dataRetrievalService.fermaEsame(appelloId).subscribe({
+      next: () => {
+        console.log('Esame fermato con successo');
+        this.snackBar.open('Esame fermato con successo!', 'Chiudi', {
+          duration: 3000,
+        });
+        this.router.navigate(['/home']);
+      },
+      error: (err) => {
+        console.error("Errore nel fermare l'esame:", err);
+      },
     });
   }
 }

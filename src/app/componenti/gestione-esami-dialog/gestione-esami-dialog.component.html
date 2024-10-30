@@ -1,48 +1,54 @@
 <div class="dialog-container">
   <h2>Gestisci Esame</h2>
 
-  <div class="file-upload">
-    <label class="file-label">
-      <input type="file" (change)="onFileSelected('SQL', $event)" />
-      <span class="custom-file-button" [class.loaded]="isEsameCaricatoSQL">
+  <ng-container *ngIf="!data.appello.iniziato; else esameIniziato">
+    <div class="file-upload">
+      <label class="file-label">
+        <input type="file" (change)="onFileSelected('SQL', $event)" />
+        <span class="custom-file-button" [class.loaded]="isEsameCaricatoSQL">
+          Carica Esame SQL
+        </span>
+      </label>
+
+      <button
+        mat-button
+        (click)="caricaEsameSQL()"
+        [disabled]="isEsameCaricatoSQL || !selectedFileSQL"
+      >
         Carica Esame SQL
-      </span>
-    </label>
+      </button>
+    </div>
 
-    <button
-      mat-button
-      (click)="caricaEsameSQL()"
-      [disabled]="isEsameCaricatoSQL || !selectedFileSQL"
-    >
-      Carica Esame SQL
-    </button>
-  </div>
+    <div class="file-upload">
+      <label class="file-label">
+        <input type="file" (change)="onFileSelected('ERM', $event)" />
+        <span class="custom-file-button" [class.loaded]="isEsameCaricatoERM">
+          Carica Esame ERM
+        </span>
+      </label>
 
-  <div class="file-upload">
-    <label class="file-label">
-      <input type="file" (change)="onFileSelected('ERM', $event)" />
-      <span class="custom-file-button" [class.loaded]="isEsameCaricatoERM">
+      <button
+        mat-button
+        (click)="caricaEsameERM()"
+        [disabled]="isEsameCaricatoERM || !selectedFileERM"
+      >
         Carica Esame ERM
-      </span>
-    </label>
+      </button>
+    </div>
 
     <button
       mat-button
-      (click)="caricaEsameERM()"
-      [disabled]="isEsameCaricatoERM || !selectedFileERM"
+      color="primary"
+      (click)="iniziaEsame()"
+      [disabled]="!isEsameCaricatoSQL || !isEsameCaricatoERM"
     >
-      Carica Esame ERM
+      Inizia Esame
     </button>
-  </div>
+  </ng-container>
 
-  <button
-    mat-button
-    color="primary"
-    (click)="iniziaEsame()"
-    [disabled]="!isEsameCaricatoSQL || !isEsameCaricatoERM"
-  >
-    Inizia Esame
-  </button>
+  <ng-template #esameIniziato>
+    <button mat-button color="warn" (click)="fermaEsame()">Ferma Esame</button>
+  </ng-template>
 
   <button mat-button (click)="chiudiDialog()">Chiudi</button>
 

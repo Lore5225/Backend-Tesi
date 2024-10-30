@@ -89,6 +89,17 @@ export class DataRetrievalServiceService {
   }
 
   downloadFile(appelloId: number, type: string): Observable<any> {
-    return this.http.get<any>(`api/download/${appelloId}/${type}`);
+    const url = `/api/download-file/${appelloId}/${type}`;
+    return this.http.get(url, { responseType: 'arraybuffer' });
+  }
+
+  fermaEsame(appelloId: number): Observable<any> {
+    return this.http.post('/api/fermaEsame', { appelloId });
+  }
+
+  caricaEsame(formData: FormData): Observable<Blob> {
+    return this.http.post(`/api/caricaEsame`, formData, {
+      responseType: 'blob',
+    });
   }
 }
