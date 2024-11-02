@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 })
 export class PrenotazioniComponent implements OnInit {
   Appelli: any[] = [];
+  prenotazioni: any[] = [];
   prenotazioniMap: { [appelloId: number]: boolean } = {};
   userType: string = '';
   errorMessage: string = '';
@@ -90,11 +91,19 @@ export class PrenotazioniComponent implements OnInit {
     this.dataRetrievalService.fetchPrenotazioni(studenteId).subscribe({
       next: (response: any[]) => {
         console.log('Risposta delle prenotazioni:', response);
+        this.prenotazioni = response;
         this.Appelli.forEach((appello) => {
           this.prenotazioniMap[appello.id] = response.some(
             (prenotazione) => prenotazione.appello_id === appello.id
           );
         });
+        this.Appelli = this.Appelli.filter(
+          (appello) =>
+            !appello.iniziato ||
+            (appello.iniziato &&
+              !appello.terminato &&
+              this.prenotazioniMap[appello.id])
+        );
       },
       error: (err: any) => {
         console.error('Errore recupero prenotazioni:', err);
@@ -130,9 +139,15 @@ export class PrenotazioniComponent implements OnInit {
   }
 
   openDatiDialog(appello: any): void {
+    const prenotazione = this.prenotazioni.find(
+      (p) => p.appello_id === appello.id
+    );
     this.dialog.open(PrenotazioneDialogComponent, {
       width: '750px',
-      data: { appello: appello },
+      data: {
+        appello: appello,
+        prenotazione_id: prenotazione ? prenotazione.id : null,
+      },
     });
   }
 

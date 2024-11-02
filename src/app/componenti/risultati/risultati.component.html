@@ -1,1 +1,10 @@
-<p>risultati works!</p>
+<h2>Risultati Appelli</h2>
+<div *ngIf="loading">Caricamento risultati...</div>
+<div *ngIf="!loading && risultati.length === 0">Nessun risultato trovato.</div>
+<ul *ngIf="!loading && risultati.length > 0">
+  <li *ngFor="let risultato of risultati" class="risultato-item">
+    <span class="label">Data Appello:</span>
+    {{ risultato.data_appello | date : "dd/MM/yyyy" }}
+    <span class="label">Esito:</span> {{ risultato.esito }}
+  </li>
+</ul>

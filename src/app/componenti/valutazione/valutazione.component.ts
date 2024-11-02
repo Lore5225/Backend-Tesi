@@ -61,7 +61,7 @@ export class ValutazioneComponent implements OnInit {
     this.dataRetrievalService.fetchAllAppelli().subscribe({
       next: (response: any[]) => {
         console.log('Risposta degli appelli:', response);
-        this.Appelli = response;
+        this.Appelli = response.filter((appello) => appello.terminato);
       },
       error: (err: any) => {
         console.error('Errore recupero appelli:', err);
@@ -72,8 +72,8 @@ export class ValutazioneComponent implements OnInit {
 
   openGestisciValutazioniDialog(appello: any): void {
     const dialogRef = this.dialog.open(ValutazioneDialogComponent, {
-      width: '1600px',
-      height: '500px',
+      width: '1800px',
+      height: '600px',
       data: appello,
     });
 

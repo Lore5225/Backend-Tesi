@@ -104,4 +104,29 @@ export class DataRetrievalServiceService {
   fetchStudentiPrenotati(appelloId: number): Observable<any> {
     return this.http.get<any>(`/api/prenotazioni/${appelloId}`);
   }
+
+  getFilesByStudente(formData: FormData): Observable<any> {
+    const url = 'api/downloadStudent';
+    return this.http.post<any>(url, formData);
+  }
+
+  uploadEsito(
+    studenteId: number,
+    appelloId: number,
+    votoSql: number,
+    votoErm: number
+  ): Observable<any> {
+    const formData = new FormData();
+    formData.append('studenteId', studenteId.toString());
+    formData.append('appelloId', appelloId.toString());
+    formData.append('votoSql', votoSql.toString());
+    formData.append('votoErm', votoErm.toString());
+
+    const url = 'api/uploadEsiti';
+    return this.http.post(url, formData);
+  }
+
+  getPrenotazioniTerminate(studenteId: number): Observable<any[]> {
+    return this.http.get<any[]>(`/api/prenotazioni/terminate/${studenteId}`);
+  }
 }
