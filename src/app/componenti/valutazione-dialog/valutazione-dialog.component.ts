@@ -41,7 +41,7 @@ export class ValutazioneDialogComponent implements OnInit {
         if (this.studenti.length === 0) {
           this.errorMessage = 'Nessun file trovato.';
         }
-        // Inizializza i voti per ogni studente
+
         this.studenti.forEach((studente) => {
           this.voti[studente.studente.id] = { sql: [], erm: [] };
         });
@@ -117,7 +117,6 @@ export class ValutazioneDialogComponent implements OnInit {
       const esitoSql = this.calculateTotaleVoti(this.voti[studenteId].sql);
       const esitoErm = this.calculateTotaleVoti(this.voti[studenteId].erm);
 
-      // Verifica se i voti sono stati inseriti
       if (
         this.voti[studenteId].sql.length === 0 ||
         this.voti[studenteId].erm.length === 0

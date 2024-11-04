@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { DataRetrievalServiceService } from '../../Services/data-retrieval-service.service';
-import { AuthServiceService } from '../../Services/auth-service.service'; // Importa il tuo servizio di autenticazione
+import { AuthServiceService } from '../../Services/auth-service.service';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 interface Lezione {
   id: number;
   ordine: number;
-  data: string; // Cambia in 'Date' se usi un oggetto Date
+  data: string;
   link: string[];
   argomento: string;
   canale: string;
@@ -25,7 +25,7 @@ export class LezioniComponent implements OnInit {
   lezioni: Lezione[] = [];
   lezioniCanaleA_L: Lezione[] = [];
   lezioniCanaleM_Z: Lezione[] = [];
-  corsoIscritto: any = null; // Potresti voler definire anche un'interfaccia per 'corsoIscritto'
+  corsoIscritto: any = null;
   userType: string = '';
 
   constructor(

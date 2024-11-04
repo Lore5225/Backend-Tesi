@@ -51,14 +51,12 @@ export class CorsiComponent implements OnInit {
   }
 
   onAnnoChange() {
-    // Filtra i canali disponibili in base all'anno selezionato
     const corsiFiltrati = this.corsi.filter(
       (corso) => corso.anno === this.corsoSelezionato.anno
     );
     this.canaliDisponibili = Array.from(
       new Set(corsiFiltrati.map((corso) => corso.canale))
     );
-    // Resetta il canale selezionato se non è più disponibile
     if (!this.canaliDisponibili.includes(this.corsoSelezionato.canale)) {
       this.corsoSelezionato.canale = '';
     }
