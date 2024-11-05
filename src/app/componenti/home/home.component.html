@@ -64,10 +64,6 @@
     </button>
     <ul>
       <ng-container *ngIf="userType !== 'professor'; else professorMenu">
-        <li (click)="navigateToEsami()">
-          <img src="assets/esami.png" alt="Esami Icon" />
-          <span>Esami</span>
-        </li>
         <li (click)="navigateToAllenati()">
           <img src="assets/allenati.png" alt="Allenati Icon" />
           <span>Allenati</span>
@@ -81,7 +77,7 @@
           <span>Lezioni</span>
         </li>
         <li (click)="navigateToPrenotazione()">
-          <img src="assets/management (1).png" alt="Prenotazioni Icon" />
+          <img src="assets/icons8-reservation-90.png" alt="Prenotazioni Icon" />
           <span>Prenotazione</span>
         </li>
         <li (click)="navigateToRisultati()">
@@ -114,10 +110,6 @@
         <li (click)="navigateToNuovoAvviso()">
           <img src="assets/avvisi.png" alt="Avvisi Icon" />
           <span>Nuovo Avviso</span>
-        </li>
-        <li (click)="navigateToAllenati()">
-          <img src="assets/allenati.png" alt="Allenati Icon" />
-          <span>Genera Esame</span>
         </li>
 
         <li (click)="navigateToValutazione()">

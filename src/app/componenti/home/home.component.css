@@ -10,9 +10,9 @@
 .sidebar {
   grid-area: sidebar;
   background: linear-gradient(to top, #267097b3, #a8d0e6);
-  padding: 10px; /* Ridotto padding */
-  margin: 10px; /* Ridotto margine */
-  border-radius: 10px; /* Ridotto border-radius */
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
   position: relative;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -26,7 +26,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 5px; /* Ridotto margine superiore */
+  margin-top: 5px;
 }
 
 .sidebar li.dashboard {
@@ -37,31 +37,31 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin-bottom: 10px; /* Ridotto margine inferiore */
+  margin-bottom: 10px;
   font-family: "Poppins", sans-serif;
   font-weight: 400;
   color: white;
   width: 100%;
-  padding: 8px; /* Ridotto padding */
+  padding: 8px;
   box-sizing: border-box;
 }
 
 .sidebar img {
-  margin-right: 8px; /* Ridotto margine destro */
-  width: 25px; /* Ridotta larghezza */
-  height: 25px; /* Ridotta altezza */
+  margin-right: 8px;
+  width: 25px;
+  height: 25px;
   flex-shrink: 0;
 }
 
 .sidebar li span {
   flex-grow: 1;
   text-align: left;
-  font-size: 0.9rem; /* Ridotto font-size */
+  font-size: 0.9rem;
 }
 
 li:hover:not(.dashboard:hover) {
   cursor: pointer;
-  transform: scale(1.1); /* Ridotta l'espansione */
+  transform: scale(1.1);
   transition: transform 0.3s ease;
 }
 
@@ -74,14 +74,14 @@ li:not(:hover):not(.dashboard:hover) {
   display: grid;
   place-items: center;
   background: #e3edf7;
-  padding: 1em; /* Ridotto padding */
-  border-radius: 8px; /* Ridotto border-radius */
+  padding: 1em;
+  border-radius: 8px;
   box-shadow: 4px 4px 8px -1px rgba(0, 0, 0, 0.15),
     -4px -4px 8px -1px rgba(0, 0, 0, 0.15);
   border: 1px solid rgba(0, 0, 0, 0);
   cursor: pointer;
   transition: transform 0.5s;
-  margin: 15px 0; /* Ridotto margine */
+  margin: 15px 0;
 }
 
 .btn:hover {
@@ -90,22 +90,22 @@ li:not(:hover):not(.dashboard:hover) {
     -0.5px -0.5px 0px rgba(255, 255, 255, 1),
     0.5px 0.5px 0px rgba(0, 0, 0, 0.15), 0px 12px 10px -10px rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(0, 0, 0, 0.1);
-  transform: translateY(0.3em); /* Ridotta la trasformazione */
+  transform: translateY(0.3em);
 }
 
 .btn svg {
   transition: transform 0.5s;
-  width: 60px; /* Ridotto larghezza */
-  height: 60px; /* Ridotto altezza */
+  width: 60px;
+  height: 60px;
 }
 
 .btn:hover svg {
-  transform: scale(0.85); /* Ridotta la trasformazione al passaggio */
+  transform: scale(0.85);
   fill: #333333;
 }
 
 .router-outlet-container {
   grid-area: content;
-  padding: 15px; /* Ridotto padding */
+  padding: 15px;
   overflow-y: auto;
 }

@@ -21,6 +21,7 @@ export class PrenotazioniComponent implements OnInit {
   userType: string = '';
   errorMessage: string = '';
   corsoId: number | null = null;
+  loading: boolean = true;
 
   constructor(
     private dataRetrievalService: DataRetrievalServiceService,
@@ -42,10 +43,12 @@ export class PrenotazioniComponent implements OnInit {
           this.checkIscrizione();
         } else {
           this.errorMessage = 'Accesso non autorizzato per i professori.';
+          this.loading = false;
         }
       },
       error: (err) => {
         console.error('Errore nel controllo della sessione:', err);
+        this.loading = false;
       },
     });
   }
@@ -59,11 +62,13 @@ export class PrenotazioniComponent implements OnInit {
           this.fetchAppelli();
         } else {
           this.errorMessage = 'Non sei iscritto a nessun corso.';
+          this.loading = false;
         }
       },
       error: (err) => {
         console.error("Errore nel controllo dell'iscrizione:", err);
         this.errorMessage = "Errore nel controllo dell'iscrizione.";
+        this.loading = false;
       },
     });
   }
@@ -71,6 +76,7 @@ export class PrenotazioniComponent implements OnInit {
   fetchAppelli(): void {
     if (this.corsoId === null) {
       this.errorMessage = 'Corso non trovato.';
+      this.loading = false;
       return;
     }
     this.dataRetrievalService.fetchAppelli(this.corsoId).subscribe({
@@ -82,6 +88,7 @@ export class PrenotazioniComponent implements OnInit {
       error: (err: any) => {
         console.error('Errore recupero appelli:', err);
         this.errorMessage = 'Errore nel recupero degli appelli.';
+        this.loading = false;
       },
     });
   }
@@ -104,10 +111,12 @@ export class PrenotazioniComponent implements OnInit {
               !appello.terminato &&
               this.prenotazioniMap[appello.id])
         );
+        this.loading = false;
       },
       error: (err: any) => {
         console.error('Errore recupero prenotazioni:', err);
         this.errorMessage = 'Errore nel recupero delle prenotazioni.';
+        this.loading = false;
       },
     });
   }
@@ -147,23 +156,6 @@ export class PrenotazioniComponent implements OnInit {
       data: {
         appello: appello,
         prenotazione_id: prenotazione ? prenotazione.id : null,
-      },
-    });
-  }
-
-  fermaEsame(appelloId: number): void {
-    console.log('Ferma Esame');
-
-    this.dataRetrievalService.fermaEsame(appelloId).subscribe({
-      next: () => {
-        console.log('Esame fermato con successo');
-        this.snackBar.open('Esame fermato con successo!', 'Chiudi', {
-          duration: 3000,
-        });
-        this.router.navigate(['/home']);
-      },
-      error: (err) => {
-        console.error("Errore nel fermare l'esame:", err);
       },
     });
   }

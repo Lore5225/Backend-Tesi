@@ -1,30 +1,52 @@
 <div class="lesson-detail-page">
-  <div class="page-header">
-    <h1>Dettagli delle Lezioni</h1>
+  <div *ngIf="isLoading" class="loading">
+    <img src="assets/loading.gif" alt="Caricamento in corso..." />
   </div>
 
-  <div class="lessons-container">
-    <div *ngIf="userType === 'professor'">
-      <div *ngIf="lezioniCanaleA_L.length > 0">
-        <h2>Lezioni (A-L)</h2>
-        <div class="lesson-card" *ngFor="let lezione of lezioniCanaleA_L">
-          <h2>{{ lezione.ordine }}</h2>
-          <h2>{{ lezione.argomento }}</h2>
-          <p>Data: {{ lezione.data }}</p>
+  <div *ngIf="!isLoading">
+    <div class="page-header">
+      <h1>Dettagli delle Lezioni</h1>
+    </div>
 
-          <h3>Materiale della lezione:</h3>
-          <ul>
-            <li *ngFor="let url of lezione.link">
-              <a [href]="sanitizeUrl(url)" target="_blank">Materiale</a>
-            </li>
-          </ul>
+    <div class="lessons-container">
+      <div *ngIf="userType === 'professor'">
+        <div *ngIf="lezioniCanaleA_L.length > 0">
+          <h2>Lezioni (A-L)</h2>
+          <div class="lesson-card" *ngFor="let lezione of lezioniCanaleA_L">
+            <h2>{{ lezione.ordine }}</h2>
+            <h2>{{ lezione.argomento }}</h2>
+            <p>Data: {{ lezione.data }}</p>
+
+            <h3>Materiale della lezione:</h3>
+            <ul>
+              <li *ngFor="let url of lezione.link">
+                <a [href]="sanitizeUrl(url)" target="_blank">Materiale</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div *ngIf="lezioniCanaleM_Z.length > 0">
+          <h2>Lezioni (M-Z)</h2>
+          <div class="lessons-container">
+            <div class="lesson-card" *ngFor="let lezione of lezioniCanaleM_Z">
+              <h2>{{ lezione.ordine }}</h2>
+              <h2>{{ lezione.argomento }}</h2>
+              <p>Data: {{ lezione.data }}</p>
+
+              <h3>Materiale della lezione:</h3>
+              <ul>
+                <li *ngFor="let url of lezione.link">
+                  <a [href]="sanitizeUrl(url)" target="_blank">Materiale</a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div *ngIf="lezioniCanaleM_Z.length > 0">
-        <h2>Lezioni (M-Z)</h2>
+      <div *ngIf="userType === 'student' && lezioni.length > 0">
         <div class="lessons-container">
-          <div class="lesson-card" *ngFor="let lezione of lezioniCanaleM_Z">
+          <div class="lesson-card" *ngFor="let lezione of lezioni">
             <h2>{{ lezione.ordine }}</h2>
             <h2>{{ lezione.argomento }}</h2>
             <p>Data: {{ lezione.data }}</p>
@@ -38,33 +60,17 @@
           </div>
         </div>
       </div>
-    </div>
-    <div *ngIf="userType === 'student' && lezioni.length > 0">
-      <div class="lessons-container">
-        <div class="lesson-card" *ngFor="let lezione of lezioni">
-          <h2>{{ lezione.ordine }}</h2>
-          <h2>{{ lezione.argomento }}</h2>
-          <p>Data: {{ lezione.data }}</p>
 
-          <h3>Materiale della lezione:</h3>
-          <ul>
-            <li *ngFor="let url of lezione.link">
-              <a [href]="sanitizeUrl(url)" target="_blank">Materiale</a>
-            </li>
-          </ul>
-        </div>
+      <div
+        *ngIf="
+          (userType === 'student' && lezioni.length === 0) ||
+          (userType === 'professor' &&
+            lezioniCanaleA_L.length === 0 &&
+            lezioniCanaleM_Z.length === 0)
+        "
+      >
+        <p>Non ci sono lezioni disponibili.</p>
       </div>
-    </div>
-
-    <div
-      *ngIf="
-        (userType === 'student' && lezioni.length === 0) ||
-        (userType === 'professor' &&
-          lezioniCanaleA_L.length === 0 &&
-          lezioniCanaleM_Z.length === 0)
-      "
-    >
-      <p>Non ci sono lezioni disponibili.</p>
     </div>
   </div>
 </div>

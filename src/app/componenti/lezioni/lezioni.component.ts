@@ -27,6 +27,7 @@ export class LezioniComponent implements OnInit {
   lezioniCanaleM_Z: Lezione[] = [];
   corsoIscritto: any = null;
   userType: string = '';
+  isLoading: boolean = true;
 
   constructor(
     private dataRetrievalService: DataRetrievalServiceService,
@@ -48,6 +49,7 @@ export class LezioniComponent implements OnInit {
       },
       error: (err) => {
         console.error('Errore nel controllo della sessione:', err);
+        this.isLoading = false;
       },
     });
   }
@@ -62,10 +64,12 @@ export class LezioniComponent implements OnInit {
             this.fetchLezioni();
           } else {
             console.warn('Nessun corso trovato per questo studente.');
+            this.isLoading = false;
           }
         },
         error: (err) => {
           console.error('Errore nel recupero del corso iscritto:', err);
+          this.isLoading = false;
         },
       });
     }
@@ -83,13 +87,14 @@ export class LezioniComponent implements OnInit {
           this.lezioni = this.lezioni.filter(
             (lezione) => lezione.corso_id === this.corsoIscritto.id
           );
-          console.log(this.lezioni);
         } else if (this.userType === 'professor') {
           this.divideLezioniPerCanale();
         }
+        this.isLoading = false;
       },
       error: (err) => {
         console.error('Errore recupero lezioni:', err);
+        this.isLoading = false;
       },
     });
   }

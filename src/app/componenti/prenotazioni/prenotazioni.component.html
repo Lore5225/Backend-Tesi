@@ -1,10 +1,17 @@
 <div id="main">
   <h1>Prenotazioni Appelli</h1>
-  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
-  <ul *ngIf="Appelli.length > 0; else noAppelli">
+
+  <div *ngIf="loading" class="loading">
+    <img src="assets/loading.gif" alt="Loading..." />
+  </div>
+
+  <div *ngIf="errorMessage && !loading" class="error">
+    {{ errorMessage }}
+  </div>
+
+  <ul *ngIf="!loading && Appelli.length > 0; else noAppelli">
     <li *ngFor="let appello of Appelli">
       <span>Data: {{ appello.data }}</span>
-
       <button
         *ngIf="prenotazioniMap[appello.id]"
         (click)="rimuoviPrenotazione(appello.id)"
@@ -17,7 +24,6 @@
       >
         Prenota
       </button>
-
       <button
         *ngIf="prenotazioniMap[appello.id]"
         (click)="openDatiDialog(appello)"
@@ -28,6 +34,8 @@
   </ul>
 
   <ng-template #noAppelli>
-    <p>Non ci sono appelli disponibili per il corso selezionato.</p>
+    <p *ngIf="!loading && Appelli.length === 0">
+      Non ci sono appelli disponibili per il corso selezionato.
+    </p>
   </ng-template>
 </div>

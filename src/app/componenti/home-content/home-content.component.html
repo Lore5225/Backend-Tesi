@@ -21,7 +21,11 @@
       <div class="flex-card">
         <div class="card uno">
           <h1>Genera Nuovo Esame</h1>
-          <img src="assets/genera_esame.png" alt="Genera Nuovo Esame" />
+          <img
+            src="assets/genera_esame.png"
+            alt="Genera Nuovo Esame"
+            (click)="navigateToAllenati()"
+          />
         </div>
         <div class="card due" (click)="navigateToNuovoMateriale()">
           <h1>Inserisci Materiale Lezione</h1>
