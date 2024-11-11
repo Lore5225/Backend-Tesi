@@ -1,14 +1,18 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DataRetrievalServiceService } from '../../Services/data-retrieval-service.service';
-import { ReactiveFormsModule } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthServiceService } from '../../Services/auth-service.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -46,6 +50,7 @@ export class NuovoAppelloComponent {
   ngOnInit(): void {
     this.regForm = this.fb.group({
       data: ['', Validators.required],
+      orario: ['', Validators.required],
       corso: ['', Validators.required],
     });
 
@@ -88,8 +93,16 @@ export class NuovoAppelloComponent {
   onSubmit(): void {
     if (this.regForm.invalid) return;
 
+    const data = this.regForm.get('data')?.value;
+    const orario = this.regForm.get('orario')?.value;
+
+    const datetime = new Date(data);
+    const [hours, minutes] = orario.split(':');
+    datetime.setHours(parseInt(hours, 10));
+    datetime.setMinutes(parseInt(minutes, 10));
+
     const newAppello = {
-      data: this.regForm.get('data')?.value,
+      data: datetime.toISOString(),
       corso_id: this.regForm.get('corso')?.value,
     };
 

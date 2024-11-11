@@ -5,6 +5,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-valutazione-dialog',
@@ -18,11 +19,13 @@ export class ValutazioneDialogComponent implements OnInit {
   errorMessage: string = '';
   appelloID!: number;
   voti: { [studenteId: number]: { sql: number[]; erm: number[] } } = {};
+  note: { [studenteId: number]: string } = {};
 
   constructor(
     public dialogRef: MatDialogRef<ValutazioneDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private dataRetrievalService: DataRetrievalServiceService
+    private dataRetrievalService: DataRetrievalServiceService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -44,6 +47,7 @@ export class ValutazioneDialogComponent implements OnInit {
 
         this.studenti.forEach((studente) => {
           this.voti[studente.studente.id] = { sql: [], erm: [] };
+          this.note[studente.studente.id] = '';
         });
       },
       error: (err: any) => {
@@ -116,6 +120,7 @@ export class ValutazioneDialogComponent implements OnInit {
       const appelloId = this.appelloID;
       const esitoSql = this.calculateTotaleVoti(this.voti[studenteId].sql);
       const esitoErm = this.calculateTotaleVoti(this.voti[studenteId].erm);
+      const nota = this.note[studenteId];
 
       if (
         this.voti[studenteId].sql.length === 0 ||
@@ -127,7 +132,7 @@ export class ValutazioneDialogComponent implements OnInit {
       }
 
       this.dataRetrievalService
-        .uploadEsito(studenteId, appelloId, esitoSql, esitoErm)
+        .uploadEsito(studenteId, appelloId, esitoSql, esitoErm, nota)
         .subscribe({
           next: (response) => {
             console.log(
@@ -135,6 +140,11 @@ export class ValutazioneDialogComponent implements OnInit {
               response
             );
             this.errorMessage = 'Esiti caricati con successo!';
+
+            this.snackBar.open('Esito inviato con successo.', 'Chiudi', {
+              duration: 3000,
+              panelClass: ['success-snackbar'],
+            });
           },
           error: (err) => {
             console.error(
@@ -142,6 +152,15 @@ export class ValutazioneDialogComponent implements OnInit {
               err
             );
             this.errorMessage = 'Errore nel caricamento degli esiti.';
+
+            this.snackBar.open(
+              'Errore nel caricamento degli esiti.',
+              'Chiudi',
+              {
+                duration: 3000,
+                panelClass: ['error-snackbar'],
+              }
+            );
           },
         });
     });

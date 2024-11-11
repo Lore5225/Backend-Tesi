@@ -3,7 +3,7 @@
   <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="fill">
       <mat-label>Numero della Lezione</mat-label>
-      <input matInput formControlName="numeroLezione">
+      <input matInput formControlName="numeroLezione" />
       <mat-error *ngIf="regForm.get('numeroLezione')?.hasError('required')">
         Numero della lezione è richiesto.
       </mat-error>
@@ -14,7 +14,7 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Data</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="data">
+      <input matInput [matDatepicker]="picker" formControlName="data" />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
       <mat-error *ngIf="regForm.get('data')?.hasError('required')">
@@ -23,17 +23,29 @@
     </mat-form-field>
 
     <div formArrayName="linkMateriale">
-      <div *ngFor="let link of linkMateriale.controls; let i = index">
+      <div
+        *ngFor="let link of linkMateriale.controls; let i = index"
+        [formGroupName]="i"
+      >
+        <mat-form-field appearance="fill">
+          <mat-label>Nome Link {{ i + 1 }}</mat-label>
+          <input matInput formControlName="nome" />
+          <mat-error *ngIf="link.get('nome')?.hasError('required')">
+            Il nome del link è richiesto.
+          </mat-error>
+        </mat-form-field>
+
         <mat-form-field appearance="fill">
           <mat-label>Link {{ i + 1 }}</mat-label>
-          <input matInput [formControlName]="i">
-          <mat-error *ngIf="link.hasError('required')">
+          <input matInput formControlName="url" />
+          <mat-error *ngIf="link.get('url')?.hasError('required')">
             Il link al materiale è richiesto.
           </mat-error>
-          <mat-error *ngIf="link.hasError('pattern')">
+          <mat-error *ngIf="link.get('url')?.hasError('pattern')">
             Inserisci un URL valido.
           </mat-error>
         </mat-form-field>
+
         <button mat-button (click)="removeLink(i)">Rimuovi</button>
       </div>
       <button mat-button (click)="addLink()">Aggiungi Link</button>
@@ -41,7 +53,7 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Argomento</mat-label>
-      <input matInput formControlName="argomento">
+      <input matInput formControlName="argomento" />
       <mat-error *ngIf="regForm.get('argomento')?.hasError('required')">
         L'argomento è richiesto.
       </mat-error>
@@ -59,6 +71,13 @@
       </mat-error>
     </mat-form-field>
 
-    <button mat-raised-button class="custom-button" type="submit" [disabled]="regForm.invalid">Inserisci</button>
+    <button
+      mat-raised-button
+      class="custom-button"
+      type="submit"
+      [disabled]="regForm.invalid"
+    >
+      Inserisci
+    </button>
   </form>
 </div>

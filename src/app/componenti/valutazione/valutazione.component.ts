@@ -11,6 +11,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { EditAppelloDialogComponent } from '../modifica-appello/modifica-appello.component';
 import { GestioneEsameDialogComponent } from '../gestione-esami-dialog/gestione-esami-dialog.component';
 import { ValutazioneDialogComponent } from '../valutazione-dialog/valutazione-dialog.component';
+import { RiepilogoEsitiDialogComponent } from '../../riepilogo-esiti-dialog/riepilogo-esiti-dialog.component';
 
 @Component({
   selector: 'app-valutazione',
@@ -79,6 +80,18 @@ export class ValutazioneComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('Dialog chiuso con il risultato:', result);
+    });
+  }
+
+  openRiepilogoEsitiDialog(appello: any): void {
+    const dialogRef = this.dialog.open(RiepilogoEsitiDialogComponent, {
+      width: '1600px',
+      height: '500px',
+      data: appello,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('Dialog Riepilogo Esiti chiuso con il risultato:', result);
     });
   }
 }

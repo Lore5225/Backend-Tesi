@@ -1,68 +1,125 @@
 <h2 mat-dialog-title>Valutazione Esami</h2>
 <mat-dialog-content>
   <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-  <div *ngIf="studenti.length === 0">
+  <div *ngIf="studenti.length === 0" class="no-students">
     Nessuno studente prenotato per questo appello.
   </div>
 
-  <ul *ngFor="let studente of studenti">
-    Nome:
-    {{
-      studente.studente.nome
-    }}
-    | Cognome:
-    {{
-      studente.studente.cognome
-    }}
-    | Matricola:
-    {{
-      studente.studente.matricola
-    }}
-
-    <h3>Voti SQL</h3>
-    <div *ngFor="let voto of voti[studente.studente.id].sql; let i = index">
-      <input
-        type="number"
-        [(ngModel)]="voti[studente.studente.id].sql[i]"
-        placeholder="Inserisci votazione"
-        min="0"
-        max="30"
-      />
-      <button mat-button (click)="removeVotoSql(studente.studente.id, i)">
-        Rimuovi
-      </button>
+  <div *ngFor="let studente of studenti" class="student-container">
+    <div class="student-info">
+      <span class="student-info__label">Nome:</span>
+      <span class="student-info__value">{{ studente.studente.nome }}</span>
+      <span class="student-info__label">Cognome:</span>
+      <span class="student-info__value">{{ studente.studente.cognome }}</span>
+      <span class="student-info__label">Matricola:</span>
+      <span class="student-info__value">{{ studente.studente.matricola }}</span>
     </div>
-    <button mat-button (click)="addVotoSql(studente.studente.id)">
-      Aggiungi Voto SQL
-    </button>
-    <p>
-      Totale Voti SQL:
-      {{ calculateTotaleVoti(voti[studente.studente.id].sql) }}/30
-    </p>
 
-    <h3>Voti ERM</h3>
-    <div *ngFor="let voto of voti[studente.studente.id].erm; let i = index">
-      <input
-        type="number"
-        [(ngModel)]="voti[studente.studente.id].erm[i]"
-        placeholder="Inserisci votazione"
-        min="0"
-        max="30"
-      />
-      <button mat-button (click)="removeVotoErm(studente.studente.id, i)">
-        Rimuovi
-      </button>
+    <div class="voti-section">
+      <div class="voti-container">
+        <h3>Voti SQL</h3>
+        <div
+          *ngFor="let voto of voti[studente.studente.id].sql; let i = index"
+          class="voto-item"
+        >
+          <label class="voto-item__label">Query {{ i + 1 }}</label>
+          <input
+            type="number"
+            [(ngModel)]="voti[studente.studente.id].sql[i]"
+            min="0"
+            max="30"
+            placeholder="Voto"
+            class="voto-item__input"
+          />
+          <button
+            mat-button
+            (click)="removeVotoSql(studente.studente.id, i)"
+            class="voto-item__remove-btn"
+          >
+            Rimuovi
+          </button>
+        </div>
+        <button
+          mat-button
+          (click)="addVotoSql(studente.studente.id)"
+          class="voti-container__add-btn"
+        >
+          Aggiungi Voto SQL
+        </button>
+        <p class="total-voti">
+          Totale SQL:
+          {{ calculateTotaleVoti(voti[studente.studente.id].sql) }}/30
+        </p>
+        <button
+          mat-button
+          (click)="downloadFile('sql', studente.studente.id, this.appelloID)"
+          class="voti-container__download-btn"
+        >
+          Scarica Esame SQL
+        </button>
+      </div>
+
+      <div class="voti-container">
+        <h3>Voti ERM</h3>
+        <div
+          *ngFor="let voto of voti[studente.studente.id].erm; let i = index"
+          class="voto-item"
+        >
+          <label class="voto-item__label">Richiesta numero {{ i + 1 }}</label>
+          <input
+            type="number"
+            [(ngModel)]="voti[studente.studente.id].erm[i]"
+            min="0"
+            max="30"
+            placeholder="Voto"
+            class="voto-item__input"
+          />
+          <button
+            mat-button
+            (click)="removeVotoErm(studente.studente.id, i)"
+            class="voto-item__remove-btn"
+          >
+            Rimuovi
+          </button>
+        </div>
+        <button
+          mat-button
+          (click)="addVotoErm(studente.studente.id)"
+          class="voti-container__add-btn"
+        >
+          Aggiungi Voto ERM
+        </button>
+        <p class="total-voti">
+          Totale ERM:
+          {{ calculateTotaleVoti(voti[studente.studente.id].erm) }}/30
+        </p>
+        <button
+          mat-button
+          (click)="downloadFile('erm', studente.studente.id, this.appelloID)"
+          class="voti-container__download-btn"
+        >
+          Scarica Esame ERM
+        </button>
+      </div>
+
+      <div class="note-container">
+        <h3>Note</h3>
+        <textarea
+          [(ngModel)]="note[studente.studente.id]"
+          placeholder="Aggiungi una nota"
+          rows="3"
+          cols="30"
+          class="note-container__textarea"
+        ></textarea>
+      </div>
     </div>
-    <button mat-button (click)="addVotoErm(studente.studente.id)">
-      Aggiungi Voto ERM
-    </button>
-    <p>
-      Totale Voti ERM:
-      {{ calculateTotaleVoti(voti[studente.studente.id].erm) }}/30
-    </p>
-  </ul>
+  </div>
+
+  <button mat-button (click)="uploadEsiti()" class="upload-button">
+    Carica Esiti
+  </button>
 </mat-dialog-content>
-<button mat-button (click)="uploadEsiti()">Carica Esiti</button>
+
 <mat-dialog-actions>
-  <button mat-button (click)="onClose()">Chiudi</button>
+  <button mat-button (click)="onClose()" class="close-button">Chiudi</button>
 </mat-dialog-actions>

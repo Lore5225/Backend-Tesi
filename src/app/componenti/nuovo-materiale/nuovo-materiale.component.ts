@@ -69,10 +69,10 @@ export class NuovoMaterialeComponent {
 
   addLink(): void {
     this.linkMateriale.push(
-      this.fb.control('', [
-        Validators.required,
-        Validators.pattern('https?://.+'),
-      ])
+      this.fb.group({
+        nome: ['', Validators.required],
+        url: ['', [Validators.required, Validators.pattern('https?://.+')]],
+      })
     );
   }
 
@@ -125,11 +125,16 @@ export class NuovoMaterialeComponent {
         );
         return;
       }
-      console.log(selectedCourse.canale);
+
+      const links = this.regForm.value.linkMateriale.map((link: any) => ({
+        nome: link.nome,
+        url: link.url,
+      }));
+
       const formData = {
         ordine: this.regForm.value.numeroLezione,
         data: this.regForm.value.data,
-        link: this.regForm.value.linkMateriale,
+        link: links,
         argomento: this.regForm.value.argomento,
         canale: selectedCourse.canale,
         corso_id: this.regForm.value.corso,

@@ -8,7 +8,7 @@ interface Lezione {
   id: number;
   ordine: number;
   data: string;
-  link: string[];
+  link: { nome: string; url: string }[];
   argomento: string;
   canale: string;
   corso_id: number;
@@ -56,6 +56,7 @@ export class LezioniComponent implements OnInit {
 
   fetchCorsoIscritto(): void {
     const studenteId = parseInt(localStorage.getItem('userID') || '0', 10);
+
     if (studenteId) {
       this.dataRetrievalService.checkIscrizione(studenteId).subscribe({
         next: (response) => {
@@ -78,10 +79,17 @@ export class LezioniComponent implements OnInit {
   fetchLezioni(): void {
     this.dataRetrievalService.fetchLessons().subscribe({
       next: (response) => {
+        console.log(response);
         this.lezioni = response.map((lezione: any) => ({
-          ...lezione,
+          id: lezione.id,
+          ordine: lezione.ordine,
+          data: lezione.data,
           link: JSON.parse(lezione.link),
+          argomento: lezione.argomento,
+          canale: lezione.canale,
+          corso_id: lezione.corso_id,
         }));
+        console.log(this.lezioni);
 
         if (this.userType === 'student' && this.corsoIscritto) {
           this.lezioni = this.lezioni.filter(
@@ -90,6 +98,7 @@ export class LezioniComponent implements OnInit {
         } else if (this.userType === 'professor') {
           this.divideLezioniPerCanale();
         }
+
         this.isLoading = false;
       },
       error: (err) => {
@@ -98,7 +107,6 @@ export class LezioniComponent implements OnInit {
       },
     });
   }
-
   divideLezioniPerCanale(): void {
     this.lezioniCanaleA_L = this.lezioni.filter(
       (lezione) => lezione.canale === 'A-L'

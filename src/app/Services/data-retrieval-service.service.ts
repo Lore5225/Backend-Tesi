@@ -114,14 +114,15 @@ export class DataRetrievalServiceService {
     studenteId: number,
     appelloId: number,
     votoSql: number,
-    votoErm: number
+    votoErm: number,
+    nota: string
   ): Observable<any> {
     const formData = new FormData();
     formData.append('studenteId', studenteId.toString());
     formData.append('appelloId', appelloId.toString());
     formData.append('votoSql', votoSql.toString());
     formData.append('votoErm', votoErm.toString());
-
+    formData.append('nota', nota);
     const url = 'api/uploadEsiti';
     return this.http.post(url, formData);
   }

@@ -1,0 +1,32 @@
+<mat-dialog-content>
+  <h2>Riepilogo Esiti</h2>
+
+  <div *ngIf="esiti.length === 0" class="no-esiti">
+    <p>Non ci sono esiti disponibili per questo appello.</p>
+  </div>
+
+  <ul *ngIf="esiti.length > 0" class="esiti-list">
+    <li *ngFor="let esito of esiti" class="esito-item">
+      <div class="esito-detail">
+        <div class="detail-title">Nome Studente:</div>
+        <div class="detail-value">{{ esito.studente.nome }}</div>
+      </div>
+      <div class="esito-detail">
+        <div class="detail-title">Cognome Studente:</div>
+        <div class="detail-value">{{ esito.studente.cognome }}</div>
+      </div>
+      <div class="esito-detail">
+        <div class="detail-title">Matricola:</div>
+        <div class="detail-value">{{ esito.studente.matricola }}</div>
+      </div>
+      <div class="esito-detail">
+        <div class="detail-title">Esito:</div>
+        <div class="detail-value">{{ esito.esito }} / 30</div>
+      </div>
+    </li>
+  </ul>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="onClose()">Chiudi</button>
+</mat-dialog-actions>
