@@ -66,10 +66,19 @@ export class NuovoCorsoComponent {
 
   onSubmit() {
     if (this.regForm.valid) {
+      const userID = localStorage.getItem('userID');
+
+      if (!userID) {
+        console.error('Errore: professore_id non trovato nel localStorage');
+        return;
+      }
+
       const nuovoCorsoData = {
         canale: this.regForm.value.canale,
         anno: this.regForm.value.anno,
+        professore_id: parseInt(userID, 10),
       };
+
       console.log(nuovoCorsoData);
       this.dataRetrievalService.nuovoCorso(nuovoCorsoData).subscribe({
         next: (response: any) => {
