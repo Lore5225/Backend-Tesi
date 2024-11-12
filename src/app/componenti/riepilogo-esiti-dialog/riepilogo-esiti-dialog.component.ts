@@ -6,7 +6,7 @@ import {
   MatDialogRef,
   MatDialogModule,
 } from '@angular/material/dialog';
-import { DataRetrievalServiceService } from '../Services/data-retrieval-service.service';
+import { DataRetrievalServiceService } from '../../Services/data-retrieval-service.service';
 
 @Component({
   selector: 'app-riepilogo-esiti-dialog',

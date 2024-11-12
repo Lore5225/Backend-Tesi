@@ -8,10 +8,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
-import { EditAppelloDialogComponent } from '../modifica-appello/modifica-appello.component';
-import { GestioneEsameDialogComponent } from '../gestione-esami-dialog/gestione-esami-dialog.component';
 import { ValutazioneDialogComponent } from '../valutazione-dialog/valutazione-dialog.component';
-import { RiepilogoEsitiDialogComponent } from '../../riepilogo-esiti-dialog/riepilogo-esiti-dialog.component';
+import { RiepilogoEsitiDialogComponent } from '../riepilogo-esiti-dialog/riepilogo-esiti-dialog.component';
 
 @Component({
   selector: 'app-valutazione',
