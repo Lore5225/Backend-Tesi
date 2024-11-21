@@ -61,8 +61,11 @@ export class GestioneappelliComponent implements OnInit {
   fetchAppelli(): void {
     this.dataRetrievalService.fetchAllAppelli().subscribe({
       next: (response: any[]) => {
-        console.log('Risposta degli appelli:', response);
-        this.Appelli = response;
+        console.log('Risposta degli appelli (originale):', response);
+      
+        this.Appelli = response.filter(appello => appello.terminato !== 1);
+        
+        console.log('Appelli filtrati:', this.Appelli);
       },
       error: (err: any) => {
         console.error('Errore recupero appelli:', err);

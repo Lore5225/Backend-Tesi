@@ -22,6 +22,7 @@ export class PrenotazioniComponent implements OnInit {
   errorMessage: string = '';
   corsoId: number | null = null;
   loading: boolean = true;
+  studenteId = parseInt(localStorage.getItem('userID') || '0', 10);
 
   constructor(
     private dataRetrievalService: DataRetrievalServiceService,
@@ -54,8 +55,7 @@ export class PrenotazioniComponent implements OnInit {
   }
 
   checkIscrizione(): void {
-    const studenteId = parseInt(localStorage.getItem('userID') || '0', 10);
-    this.dataRetrievalService.checkIscrizione(studenteId).subscribe({
+    this.dataRetrievalService.checkIscrizione(this.studenteId).subscribe({
       next: (response) => {
         if (response.is_iscritto) {
           this.corsoId = response.corso.id;
@@ -94,8 +94,7 @@ export class PrenotazioniComponent implements OnInit {
   }
 
   fetchPrenotazioni(): void {
-    const studenteId = parseInt(localStorage.getItem('userID') || '0', 10);
-    this.dataRetrievalService.fetchPrenotazioni(studenteId).subscribe({
+    this.dataRetrievalService.fetchPrenotazioni(this.studenteId).subscribe({
       next: (response: any[]) => {
         console.log('Risposta delle prenotazioni:', response);
         this.prenotazioni = response;
@@ -122,8 +121,7 @@ export class PrenotazioniComponent implements OnInit {
   }
 
   prenotaAppello(appelloId: number): void {
-    const studenteId = parseInt(localStorage.getItem('userID') || '0', 10);
-    this.dataRetrievalService.prenotaAppello(studenteId, appelloId).subscribe({
+    this.dataRetrievalService.prenotaAppello(this.studenteId, appelloId).subscribe({
       next: () => {
         this.prenotazioniMap[appelloId] = true;
       },
@@ -134,9 +132,8 @@ export class PrenotazioniComponent implements OnInit {
   }
 
   rimuoviPrenotazione(appelloId: number): void {
-    const studenteId = parseInt(localStorage.getItem('userID') || '0', 10);
     this.dataRetrievalService
-      .rimuoviPrenotazione(studenteId, appelloId)
+      .rimuoviPrenotazione(this.studenteId, appelloId)
       .subscribe({
         next: () => {
           delete this.prenotazioniMap[appelloId];
@@ -155,6 +152,7 @@ export class PrenotazioniComponent implements OnInit {
       width: '750px',
       data: {
         appello: appello,
+        studente_id: this.studenteId,
         prenotazione_id: prenotazione ? prenotazione.id : null,
       },
     });

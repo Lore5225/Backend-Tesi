@@ -23,7 +23,7 @@ export class PrenotazioneDialogComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    public data: { appello: any; prenotazione_id: number },
+    public data: { appello: any; studente_id:number; prenotazione_id: number },
     private dataRetrievalService: DataRetrievalServiceService,
     private snackBar: MatSnackBar
   ) {}
@@ -42,6 +42,7 @@ export class PrenotazioneDialogComponent implements OnInit {
   uploadFile(): void {
     const formData = new FormData();
     const prenotazioneId = this.data.prenotazione_id;
+    const studente_id=this.data.studente_id;
     console.log(prenotazioneId);
 
     if (this.selectedFiles['SQL']) {
@@ -53,6 +54,7 @@ export class PrenotazioneDialogComponent implements OnInit {
     }
 
     formData.append('prenotazione_id', prenotazioneId.toString());
+    formData.append('studente_id', studente_id.toString());
 
     this.dataRetrievalService.caricaEsame(formData).subscribe({
       next: (response) => {
